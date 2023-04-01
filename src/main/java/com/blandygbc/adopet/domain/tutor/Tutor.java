@@ -1,6 +1,6 @@
-package com.blandygbc.adopet.tutor;
+package com.blandygbc.adopet.domain.tutor;
 
-import com.blandygbc.adopet.model.tutor.TutorNewModel;
+import com.blandygbc.adopet.domain.model.tutor.TutorNewModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
