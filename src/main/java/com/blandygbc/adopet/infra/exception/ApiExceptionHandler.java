@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
+import com.blandygbc.adopet.domain.exception.Message;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -38,8 +39,5 @@ public class ApiExceptionHandler {
         public ValidationErrorFields(FieldError error) {
             this(error.getField(), error.getDefaultMessage());
         }
-    }
-
-    private record Message(String message) {
     }
 }
