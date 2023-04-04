@@ -1,0 +1,18 @@
+version: '2'
+volumes:
+  dbdata:
+
+services:
+  mysql:
+    image: mysql:8.0.32
+    container_name: mysql8-adopet
+    volumes:
+      - ${DB_DATA_LOCATION}:/var/lib/mysql
+      - ${INIT_SCRIPT_LOCATION}:/docker-entrypoint-initdb.d/init-script.sql
+    #restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=adopet
+      - MYSQL_TCP_PORT=${MYSQL_TCP_PORT}
+    #ports:
+    #  - "3306:3306"
