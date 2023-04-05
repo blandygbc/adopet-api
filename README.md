@@ -15,3 +15,17 @@ adotar animais de estimação a abrigos.
 - Semana 02: Relacionamento entre entidades e engenharia de software.
 
 - Semanas 03 & 04: Autenticação, testes e deploy.
+
+### Tecnologias utilizadas
+
+Este projeto está sendo desenvolvido utilizando Java 17, String Boot 3, MySQL 8 e Docker.
+
+### Endpoints para o Tutor
+
+|                         **Descrição**                        | **Verbo** |  **Endpoint** |          **Retorno**          |
+|:------------------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
+| Adicionar um novo tutor                                      | POST      | /tutores      | Json com o tutor cadastrado.  |
+| Recuperar todos os tutores                                   | GET       | /tutores      | Json com uma lista de tutores |
+| Detalhar um tutor                                            | GET       | /tutores/{id} | Json com o tutor solicitado   |
+| Atualizar um tutor enviando  os dados no corpo da requisição | PUT       | /tutores      | Json com o tutor atualizado   |
+| Excluir um tutor                                             | DELETE    | /tutores/{id} | Mensagem de sucesso           |
