@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.exception.Message;
+import com.blandygbc.adopet.domain.exception.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,13 +17,13 @@ import jakarta.persistence.EntityNotFoundException;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Message> handleError404() {
-        return ResponseEntity.status(404).body(new Message("Não encontrado"));
+    public ResponseEntity<JsonMessage> handleError404() {
+        return ResponseEntity.status(404).body(new JsonMessage("Não encontrado"));
     }
 
     @ExceptionHandler(EmptyListException.class)
-    public ResponseEntity<Message> handleEmptyList() {
-        return ResponseEntity.ok().body(new Message("Não encontrado"));
+    public ResponseEntity<JsonMessage> handleEmptyList() {
+        return ResponseEntity.ok().body(new JsonMessage("Não encontrado"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

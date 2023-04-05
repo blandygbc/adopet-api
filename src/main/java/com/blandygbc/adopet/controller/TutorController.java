@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.exception.Message;
+import com.blandygbc.adopet.domain.exception.JsonMessage;
 import com.blandygbc.adopet.domain.model.tutor.TutorModel;
 import com.blandygbc.adopet.domain.model.tutor.TutorNewModel;
 import com.blandygbc.adopet.domain.model.tutor.TutorUpdateModel;
+import com.blandygbc.adopet.domain.role.Role;
+import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.tutor.Tutor;
 import com.blandygbc.adopet.domain.tutor.TutorRepository;
 
@@ -33,11 +35,15 @@ public class TutorController {
     @Autowired
     private TutorRepository repository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TutorModel> add(@Valid @RequestBody TutorNewModel newTutor) {
-        Tutor savedTutor = repository.save(new Tutor(newTutor));
+        Role role = roleRepository.getReferenceById(3L);
+        Tutor savedTutor = repository.save(new Tutor(newTutor, role));
         return ResponseEntity.ok(new TutorModel(savedTutor));
     }
 
@@ -62,12 +68,12 @@ public class TutorController {
 
     @DeleteMapping("/{tutorId}")
     @Transactional
-    public ResponseEntity<Message> delete(@PathVariable Long tutorId) {
+    public ResponseEntity<JsonMessage> delete(@PathVariable Long tutorId) {
         Integer result = repository.deleteTutorById(tutorId);
         if (result == 0) {
             throw new EntityNotFoundException();
         }
-        return ResponseEntity.ok(new Message("Removido com sucesso!"));
+        return ResponseEntity.ok(new JsonMessage("Removido com sucesso!"));
     }
 
     @GetMapping(value = "/{tutorId}")

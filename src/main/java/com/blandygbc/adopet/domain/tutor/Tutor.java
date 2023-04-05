@@ -2,13 +2,14 @@ package com.blandygbc.adopet.domain.tutor;
 
 import com.blandygbc.adopet.domain.model.tutor.TutorNewModel;
 import com.blandygbc.adopet.domain.model.tutor.TutorUpdateModel;
+import com.blandygbc.adopet.domain.role.Role;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,14 +29,21 @@ public class Tutor {
     private String name;
     private String email;
     private String password;
+    private Integer phone;
+    private String city;
+    private String about;
+    private String image;
+    @ManyToOne
+    private Role role;
 
-    public Tutor(TutorNewModel newTutor) {
+    public Tutor(TutorNewModel newTutor, Role role) {
         this.name = newTutor.name();
         this.email = newTutor.email();
         this.password = newTutor.password();
+        this.role = role;
     }
 
-    public void updateInfo(@Valid TutorUpdateModel updateTutor) {
+    public void updateInfo(TutorUpdateModel updateTutor) {
         if (updateTutor.name() != null) {
             this.name = updateTutor.name();
         }
@@ -44,6 +52,21 @@ public class Tutor {
         }
         if (updateTutor.password() != null) {
             this.password = updateTutor.password();
+        }
+        if (updateTutor.phone() != null) {
+            this.phone = updateTutor.phone();
+        }
+        if (updateTutor.city() != null) {
+            this.city = updateTutor.city();
+        }
+        if (updateTutor.about() != null) {
+            this.about = updateTutor.about();
+        }
+        if (updateTutor.image() != null) {
+            this.image = updateTutor.image();
+        }
+        if (updateTutor.role() != null) {
+            this.role = new Role(updateTutor.role());
         }
     }
 
