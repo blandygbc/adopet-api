@@ -8,6 +8,7 @@ public record TutorModel(
         String email,
         String phone,
         String city,
+        String state,
         String about,
         String image,
         RoleModel role) {
@@ -18,6 +19,7 @@ public record TutorModel(
                 tutor.getEmail(),
                 tutor.getPhone(),
                 tutor.getCity(),
+                tutor.getState(),
                 tutor.getAbout(),
                 tutor.getImage(),
                 new RoleModel(tutor.getRole()));

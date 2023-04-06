@@ -1,5 +1,7 @@
 package com.blandygbc.adopet.domain.tutor;
 
+import org.hibernate.validator.constraints.URL;
+
 import com.blandygbc.adopet.domain.role.Role;
 
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,11 +28,14 @@ public class Tutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Email
     private String email;
     private String password;
     private String phone;
     private String city;
+    private String state;
     private String about;
+    @URL
     private String image;
     @ManyToOne
     private Role role;
@@ -56,6 +62,9 @@ public class Tutor {
         }
         if (updateTutor.city() != null) {
             this.city = updateTutor.city();
+        }
+        if (updateTutor.state() != null) {
+            this.state = updateTutor.state();
         }
         if (updateTutor.about() != null) {
             this.about = updateTutor.about();

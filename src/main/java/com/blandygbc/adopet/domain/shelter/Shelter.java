@@ -1,5 +1,7 @@
 package com.blandygbc.adopet.domain.shelter;
 
+import org.hibernate.validator.constraints.URL;
+
 import com.blandygbc.adopet.domain.role.Role;
 
 import jakarta.persistence.Entity;
@@ -9,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,10 +28,13 @@ public class Shelter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @URL
     private String image;
     private String about;
     private String city;
+    private String state;
     private String phone;
+    @Email
     private String email;
     private String password;
     @ManyToOne
@@ -39,6 +45,7 @@ public class Shelter {
         this.image = newShelter.image();
         this.about = newShelter.about();
         this.city = newShelter.city();
+        this.state = newShelter.state();
         this.phone = newShelter.phone();
         this.email = newShelter.email();
         this.password = newShelter.password();
@@ -60,6 +67,9 @@ public class Shelter {
         }
         if (updateShelter.city() != null) {
             this.city = updateShelter.city();
+        }
+        if (updateShelter.state() != null) {
+            this.state = updateShelter.state();
         }
         if (updateShelter.about() != null) {
             this.about = updateShelter.about();
