@@ -1,9 +1,5 @@
 package com.blandygbc.adopet.domain.role;
 
-import com.blandygbc.adopet.domain.model.role.RoleModel;
-import com.blandygbc.adopet.domain.model.role.RoleNewModel;
-import com.blandygbc.adopet.domain.model.role.RoleUpdateModel;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

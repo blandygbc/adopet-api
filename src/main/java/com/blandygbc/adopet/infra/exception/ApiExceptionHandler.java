@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.exception.JsonMessage;
+import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
 

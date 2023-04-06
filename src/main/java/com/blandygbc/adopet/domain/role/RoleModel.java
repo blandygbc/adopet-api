@@ -1,6 +1,4 @@
-package com.blandygbc.adopet.domain.model.role;
-
-import com.blandygbc.adopet.domain.role.Role;
+package com.blandygbc.adopet.domain.role;
 
 public record RoleModel(Long id, String name, String description) {
     public RoleModel(Role role) {

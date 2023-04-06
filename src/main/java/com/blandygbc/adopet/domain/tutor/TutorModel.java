@@ -1,13 +1,12 @@
-package com.blandygbc.adopet.domain.model.tutor;
+package com.blandygbc.adopet.domain.tutor;
 
-import com.blandygbc.adopet.domain.model.role.RoleModel;
-import com.blandygbc.adopet.domain.tutor.Tutor;
+import com.blandygbc.adopet.domain.role.RoleModel;
 
 public record TutorModel(
         Long id,
         String name,
         String email,
-        Integer phone,
+        String phone,
         String city,
         String about,
         String image,

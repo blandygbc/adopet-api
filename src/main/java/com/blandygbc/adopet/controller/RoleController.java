@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.exception.JsonMessage;
-import com.blandygbc.adopet.domain.model.role.RoleModel;
-import com.blandygbc.adopet.domain.model.role.RoleNewModel;
-import com.blandygbc.adopet.domain.model.role.RoleUpdateModel;
 import com.blandygbc.adopet.domain.role.Role;
+import com.blandygbc.adopet.domain.role.RoleModel;
+import com.blandygbc.adopet.domain.role.RoleNewModel;
 import com.blandygbc.adopet.domain.role.RoleRepository;
+import com.blandygbc.adopet.domain.role.RoleUpdateModel;
+import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package com.blandygbc.adopet.domain.exception;
+package com.blandygbc.adopet.util;
 
 public record JsonMessage(String message) {
 }

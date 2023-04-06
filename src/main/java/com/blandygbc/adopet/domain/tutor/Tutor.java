@@ -1,7 +1,5 @@
 package com.blandygbc.adopet.domain.tutor;
 
-import com.blandygbc.adopet.domain.model.tutor.TutorNewModel;
-import com.blandygbc.adopet.domain.model.tutor.TutorUpdateModel;
 import com.blandygbc.adopet.domain.role.Role;
 
 import jakarta.persistence.Entity;
@@ -29,7 +27,7 @@ public class Tutor {
     private String name;
     private String email;
     private String password;
-    private Integer phone;
+    private String phone;
     private String city;
     private String about;
     private String image;
@@ -64,9 +62,6 @@ public class Tutor {
         }
         if (updateTutor.image() != null) {
             this.image = updateTutor.image();
-        }
-        if (updateTutor.role() != null) {
-            this.role = new Role(updateTutor.role());
         }
     }
 

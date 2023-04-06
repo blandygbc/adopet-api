@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.exception.JsonMessage;
-import com.blandygbc.adopet.domain.model.tutor.TutorModel;
-import com.blandygbc.adopet.domain.model.tutor.TutorNewModel;
-import com.blandygbc.adopet.domain.model.tutor.TutorUpdateModel;
 import com.blandygbc.adopet.domain.role.Role;
 import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.tutor.Tutor;
+import com.blandygbc.adopet.domain.tutor.TutorModel;
+import com.blandygbc.adopet.domain.tutor.TutorNewModel;
 import com.blandygbc.adopet.domain.tutor.TutorRepository;
+import com.blandygbc.adopet.domain.tutor.TutorUpdateModel;
+import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
