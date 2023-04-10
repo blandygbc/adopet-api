@@ -1,6 +1,6 @@
 ![Alura Challenges](https://github.com/blandygbc/adopet/blob/master/alura_challenges.jpeg?raw=true)
 
-[English Version](https://github.com/blandygbc/adopet#english-version)
+[English Version](./adopet#english-version)
 
 # Alura Challenge Back-End 6° Edição
 
