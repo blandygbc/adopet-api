@@ -36,17 +36,6 @@ public class Pet {
     @ManyToOne
     private Shelter shelter;
 
-    public Pet(PetNewModel newPet, Shelter shelter) {
-        this.name = newPet.name();
-        this.personality = newPet.personality();
-        this.age = newPet.age();
-        this.image = newPet.image();
-        this.species = newPet.species();
-        this.size = newPet.size();
-        this.status = PetStatus.NEW;
-        this.shelter = shelter;
-    }
-
     public void updateInfo(PetUpdateModel updatePet) {
         if (updatePet.name() != null) {
             this.name = updatePet.name();
@@ -66,6 +55,36 @@ public class Pet {
         if (updatePet.status() != null) {
             this.status = updatePet.status();
         }
+    }
+
+    public static Pet entityFromNewModel(PetNewModel newPet, Shelter shelter) {
+        return new Pet(
+                null,
+                newPet.name(),
+                newPet.personality(),
+                newPet.age(),
+                newPet.image(),
+                newPet.species(),
+                newPet.size(),
+                PetStatus.NEW,
+                shelter);
+    }
+
+    public static Pet entityFromModel(PetModel petModel) {
+        return new Pet(
+                petModel.id(),
+                petModel.name(),
+                petModel.personality(),
+                petModel.age(),
+                petModel.image(),
+                petModel.species(),
+                petModel.size(),
+                petModel.status(),
+                Shelter.entityFromModel(petModel.shelter()));
+    }
+
+    public void adopt() {
+        this.status = PetStatus.ADOPTED;
     }
 
 }

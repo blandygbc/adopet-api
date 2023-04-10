@@ -35,14 +35,14 @@ public class RoleController {
 
     @PostMapping
     public ResponseEntity<RoleModel> add(@Valid @RequestBody RoleNewModel newRole) {
-        Role savedRole = repository.save(new Role(newRole));
-        return ResponseEntity.ok(new RoleModel(savedRole));
+        Role savedRole = repository.save(Role.entityFromNewModel(newRole));
+        return ResponseEntity.ok(RoleModel.modelFromEntity(savedRole));
     }
 
     @GetMapping
     public ResponseEntity<List<RoleModel>> getAll() {
         List<RoleModel> roles = repository.findAll().stream()
-                .map(RoleModel::new)
+                .map(RoleModel::modelFromEntity)
                 .collect(Collectors.toList());
         if (roles.isEmpty()) {
             throw new EmptyListException();
@@ -55,7 +55,7 @@ public class RoleController {
     public ResponseEntity<RoleModel> update(@Valid @RequestBody RoleUpdateModel updateRole) {
         var role = repository.getReferenceById(updateRole.id());
         role.updateInfo(updateRole);
-        return ResponseEntity.ok(new RoleModel(role));
+        return ResponseEntity.ok(RoleModel.modelFromEntity(role));
     }
 
     @DeleteMapping("/{roleId}")

@@ -13,8 +13,8 @@ public record PetModel(
         PetStatus status,
         ShelterModel shelter) {
 
-    public PetModel(Pet pet) {
-        this(
+    public static PetModel modelFromEntity(Pet pet) {
+        return new PetModel(
                 pet.getId(),
                 pet.getName(),
                 pet.getPersonality(),
@@ -23,7 +23,7 @@ public record PetModel(
                 pet.getSpecies(),
                 pet.getSize(),
                 pet.getStatus(),
-                new ShelterModel(pet.getShelter()));
+                ShelterModel.modelFromEntity(pet.getShelter()));
     }
 
 }

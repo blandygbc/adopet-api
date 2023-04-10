@@ -23,17 +23,6 @@ public class Role {
     private String name;
     private String description;
 
-    public Role(RoleNewModel roleNewModel) {
-        this.name = roleNewModel.name();
-        this.description = roleNewModel.description();
-    }
-
-    public Role(RoleModel roleModel) {
-        this.id = roleModel.id();
-        this.name = roleModel.name();
-        this.description = roleModel.description();
-    }
-
     public void updateInfo(RoleUpdateModel updateRole) {
         if (updateRole.name() != null) {
             this.name = updateRole.name();
@@ -41,6 +30,20 @@ public class Role {
         if (updateRole.description() != null) {
             this.description = updateRole.description();
         }
+    }
+
+    public static Role entityFromModel(RoleModel roleModel) {
+        return new Role(
+                roleModel.id(),
+                roleModel.name(),
+                roleModel.description());
+    }
+
+    public static Role entityFromNewModel(RoleNewModel newRole) {
+        return new Role(
+                null,
+                newRole.name(),
+                newRole.description());
     }
 
 }

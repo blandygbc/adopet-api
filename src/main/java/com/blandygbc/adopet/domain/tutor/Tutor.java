@@ -40,13 +40,6 @@ public class Tutor {
     @ManyToOne
     private Role role;
 
-    public Tutor(TutorNewModel newTutor, Role role) {
-        this.name = newTutor.name();
-        this.email = newTutor.email();
-        this.password = newTutor.password();
-        this.role = role;
-    }
-
     public void updateInfo(TutorUpdateModel updateTutor) {
         if (updateTutor.name() != null) {
             this.name = updateTutor.name();
@@ -72,6 +65,34 @@ public class Tutor {
         if (updateTutor.image() != null) {
             this.image = updateTutor.image();
         }
+    }
+
+    public static Tutor entityFromNewModel(TutorNewModel newTutor, Role role) {
+        return new Tutor(
+                null,
+                newTutor.name(),
+                newTutor.email(),
+                newTutor.password(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                role);
+    }
+
+    public static Tutor entityFromModel(TutorModel tutorModel) {
+        return new Tutor(
+                tutorModel.id(),
+                tutorModel.name(),
+                tutorModel.email(),
+                null,
+                tutorModel.phone(),
+                tutorModel.city(),
+                tutorModel.state(),
+                tutorModel.about(),
+                tutorModel.image(),
+                Role.entityFromModel(tutorModel.role()));
     }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
+import com.blandygbc.adopet.domain.role.BasicRoles;
 import com.blandygbc.adopet.domain.role.Role;
 import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.tutor.Tutor;
@@ -42,15 +43,15 @@ public class TutorController {
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TutorModel> add(@Valid @RequestBody TutorNewModel newTutor) {
-        Role role = roleRepository.getReferenceById(3L);
-        Tutor savedTutor = repository.save(new Tutor(newTutor, role));
-        return ResponseEntity.ok(new TutorModel(savedTutor));
+        Role role = roleRepository.getReferenceById(BasicRoles.TUTOR.getId());
+        Tutor savedTutor = repository.save(Tutor.entityFromNewModel(newTutor, role));
+        return ResponseEntity.ok(TutorModel.modelFromEntity(savedTutor));
     }
 
     @GetMapping
     public ResponseEntity<List<TutorModel>> getAll() {
         List<TutorModel> tutors = repository.findAll().stream()
-                .map(TutorModel::new)
+                .map(TutorModel::modelFromEntity)
                 .collect(Collectors.toList());
         if (tutors.isEmpty()) {
             throw new EmptyListException();
@@ -63,7 +64,7 @@ public class TutorController {
     public ResponseEntity<TutorModel> update(@Valid @RequestBody TutorUpdateModel updateTutor) {
         var tutor = repository.getReferenceById(updateTutor.id());
         tutor.updateInfo(updateTutor);
-        return ResponseEntity.ok(new TutorModel(tutor));
+        return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));
     }
 
     @DeleteMapping("/{tutorId}")
@@ -79,7 +80,7 @@ public class TutorController {
     @GetMapping(value = "/{tutorId}")
     public ResponseEntity<TutorModel> detail(@PathVariable Long tutorId) {
         Tutor tutor = repository.getReferenceById(tutorId);
-        return ResponseEntity.ok(new TutorModel(tutor));
+        return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));
     }
 
 }

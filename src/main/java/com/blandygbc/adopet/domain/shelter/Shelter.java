@@ -40,18 +40,6 @@ public class Shelter {
     @ManyToOne
     private Role role;
 
-    public Shelter(ShelterNewModel newShelter, Role role) {
-        this.name = newShelter.name();
-        this.image = newShelter.image();
-        this.about = newShelter.about();
-        this.city = newShelter.city();
-        this.state = newShelter.state();
-        this.phone = newShelter.phone();
-        this.email = newShelter.email();
-        this.password = newShelter.password();
-        this.role = role;
-    }
-
     public void updateInfo(@Valid ShelterUpdateModel updateShelter) {
         if (updateShelter.name() != null) {
             this.name = updateShelter.name();
@@ -78,4 +66,33 @@ public class Shelter {
             this.image = updateShelter.image();
         }
     }
+
+    public static Shelter entityFromNewModel(ShelterNewModel shelterModel, Role role) {
+        return new Shelter(
+                null,
+                shelterModel.name(),
+                shelterModel.image(),
+                shelterModel.about(),
+                shelterModel.city(),
+                shelterModel.state(),
+                shelterModel.phone(),
+                shelterModel.email(),
+                shelterModel.password(),
+                role);
+    }
+
+    public static Shelter entityFromModel(ShelterModel shelterModel) {
+        return new Shelter(
+                shelterModel.id(),
+                shelterModel.name(),
+                shelterModel.image(),
+                shelterModel.about(),
+                shelterModel.city(),
+                shelterModel.state(),
+                shelterModel.phone(),
+                shelterModel.email(),
+                shelterModel.password(),
+                Role.entityFromModel(shelterModel.role()));
+    }
+
 }

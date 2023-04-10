@@ -14,8 +14,8 @@ public record ShelterModel(
         String password,
         RoleModel role) {
 
-    public ShelterModel(Shelter shelter) {
-        this(
+    public static ShelterModel modelFromEntity(Shelter shelter) {
+        return new ShelterModel(
                 shelter.getId(),
                 shelter.getName(),
                 shelter.getImage(),
@@ -25,7 +25,7 @@ public record ShelterModel(
                 shelter.getPhone(),
                 shelter.getEmail(),
                 shelter.getPassword(),
-                new RoleModel(shelter.getRole()));
+                RoleModel.modelFromEntity(shelter.getRole()));
     }
 
 }

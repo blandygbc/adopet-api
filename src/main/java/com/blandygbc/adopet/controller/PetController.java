@@ -42,14 +42,15 @@ public class PetController {
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PetModel> add(@Valid @RequestBody PetNewModel newPet) {
         var shelter = shelterRepository.getReferenceById(newPet.shelterId());
-        var savedPet = repository.save(new Pet(newPet, shelter));
-        return ResponseEntity.ok(new PetModel(savedPet));
+        var savedPet = repository.save(Pet.entityFromNewModel(newPet, shelter));
+        return ResponseEntity.ok(PetModel.modelFromEntity(savedPet));
     }
 
     @GetMapping
     public ResponseEntity<List<PetModel>> getAll() {
+        // TODO: Filter adopted pets
         List<PetModel> shelters = repository.findAll().stream()
-                .map(PetModel::new)
+                .map(PetModel::modelFromEntity)
                 .collect(Collectors.toList());
         if (shelters.isEmpty()) {
             throw new EmptyListException();
@@ -62,7 +63,7 @@ public class PetController {
     public ResponseEntity<PetModel> update(@Valid @RequestBody PetUpdateModel updatePet) {
         var pet = repository.getReferenceById(updatePet.id());
         pet.updateInfo(updatePet);
-        return ResponseEntity.ok(new PetModel(pet));
+        return ResponseEntity.ok(PetModel.modelFromEntity(pet));
     }
 
     @DeleteMapping("/{petId}")
@@ -78,7 +79,7 @@ public class PetController {
     @GetMapping(value = "/{petId}")
     public ResponseEntity<PetModel> detail(@PathVariable Long petId) {
         var pet = repository.getReferenceById(petId);
-        return ResponseEntity.ok(new PetModel(pet));
+        return ResponseEntity.ok(PetModel.modelFromEntity(pet));
     }
 
 }

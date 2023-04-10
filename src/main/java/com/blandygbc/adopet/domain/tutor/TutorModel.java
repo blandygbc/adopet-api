@@ -13,8 +13,8 @@ public record TutorModel(
         String image,
         RoleModel role) {
 
-    public TutorModel(Tutor tutor) {
-        this(tutor.getId(),
+    public static TutorModel modelFromEntity(Tutor tutor) {
+        return new TutorModel(tutor.getId(),
                 tutor.getName(),
                 tutor.getEmail(),
                 tutor.getPhone(),
@@ -22,6 +22,6 @@ public record TutorModel(
                 tutor.getState(),
                 tutor.getAbout(),
                 tutor.getImage(),
-                new RoleModel(tutor.getRole()));
+                RoleModel.modelFromEntity(tutor.getRole()));
     }
 }

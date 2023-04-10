@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
+import com.blandygbc.adopet.domain.role.BasicRoles;
 import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.shelter.Shelter;
 import com.blandygbc.adopet.domain.shelter.ShelterModel;
@@ -41,15 +42,15 @@ public class ShelterController {
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ShelterModel> add(@Valid @RequestBody ShelterNewModel newShelter) {
-        var role = roleRepository.getReferenceById(2L);
-        var savedShelter = repository.save(new Shelter(newShelter, role));
-        return ResponseEntity.ok(new ShelterModel(savedShelter));
+        var role = roleRepository.getReferenceById(BasicRoles.SHELTER.getId());
+        var savedShelter = repository.save(Shelter.entityFromNewModel(newShelter, role));
+        return ResponseEntity.ok(ShelterModel.modelFromEntity(savedShelter));
     }
 
     @GetMapping
     public ResponseEntity<List<ShelterModel>> getAll() {
         List<ShelterModel> shelters = repository.findAll().stream()
-                .map(ShelterModel::new)
+                .map(ShelterModel::modelFromEntity)
                 .collect(Collectors.toList());
         if (shelters.isEmpty()) {
             throw new EmptyListException();
@@ -62,7 +63,7 @@ public class ShelterController {
     public ResponseEntity<ShelterModel> update(@Valid @RequestBody ShelterUpdateModel updateShelter) {
         var shelter = repository.getReferenceById(updateShelter.id());
         shelter.updateInfo(updateShelter);
-        return ResponseEntity.ok(new ShelterModel(shelter));
+        return ResponseEntity.ok(ShelterModel.modelFromEntity(shelter));
     }
 
     @DeleteMapping("/{shelterId}")
@@ -78,7 +79,7 @@ public class ShelterController {
     @GetMapping(value = "/{shelterId}")
     public ResponseEntity<ShelterModel> detail(@PathVariable Long shelterId) {
         var shelter = repository.getReferenceById(shelterId);
-        return ResponseEntity.ok(new ShelterModel(shelter));
+        return ResponseEntity.ok(ShelterModel.modelFromEntity(shelter));
     }
 
 }
