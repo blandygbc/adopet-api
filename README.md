@@ -33,7 +33,7 @@ Este projeto está sendo desenvolvido utilizando Java 17, String Boot 3, MySQL 8
 | Atualizar um tutor enviando  os dados no corpo da requisição | PUT       | /tutores      | Json com o tutor atualizado   |
 | Excluir um tutor                                             | DELETE    | /tutores/{id} | Mensagem de sucesso           |
 
-##### English Version
+#### English Version
 
 # Alura Backend Challenge 6° Edition
 
