@@ -21,7 +21,63 @@ adotar animais de estimação a abrigos.
 
 ### Tecnologias utilizadas
 
-Este projeto está sendo desenvolvido utilizando Java 17, String Boot 3, MySQL 8 e Docker.
+Este projeto está sendo desenvolvido utilizando Java 17, String Boot 3, Maven, MySQL 8 e Docker.
+
+Para clonar e usar o projeto instale as ferramentas abaixo:
+
+- `Java 17`: [Adoptium](https://adoptium.net/temurin/releases/).
+- `Docker`: [Docker](https://www.docker.com/).
+- `IDE`: Uma IDE ou editor de texto de sua escolha, eu utilizo o [VS CODE](https://code.visualstudio.com/Download).
+
+### Instruções de utilização
+
+1. Primeiro clone ou baixe o projeto.
+2. Após abrir o projeto na IDE ou editor de sua escolha rode o comando abaixo para baixar as dependências:
+
+No windows:
+```bash
+
+./mvnw install
+
+```
+
+No linux:
+```
+
+mvnw install
+
+```
+
+3. Após baixar as dependências crie um arquivo chamado `init-init-script.sql` para criar um usuário que irá manipular o banco seguindo o modelo abaixo:
+
+```SQL
+
+CREATE USER 'SEU_USUARIO'@'localhost' IDENTIFIED BY 'SUA_SENHA';
+GRANT ALL ON adopet.* TO 'SEU_USUARIO'@'localhost';
+FLUSH PRIVILEGES;
+
+```
+
+4.  crie um arquivo `.env` na raíz do projeto com as seguintes informações:
+
+```ENV
+
+# Variáveis para o docker
+DB_DATA_LOCATION=LOCALIZAÇÃO_DO_PONTO_DE_MONTAGEM_DO_BANCO_NO_PC
+INIT_SCRIPT_LOCATION=LOCALIZAÇÃO_DO_INIT_SCRIPT_SQL
+MYSQL_ROOT_PASSWORD=USE_UMA_SENHA_FORTE_ALEATÓRIA_MAIOR_QUE_14_CARACTERES
+MYSQL_TCP_PORT=PORTA_QUE_SERÁ_UTILIZADA_NO_MYSQL
+
+# Variáveis para o projeto. Use as mesmas informações do docker.
+# Geralmente os IPs do docker são 172.17.0.2
+# *** No Windows deixe como localhost ***
+FLYWAY_URL=jdbc:mysql://IP_DO_CONAINER_DOCKER:PORTA_UTILIZADA_NO_MYSQL_TCP_PORT/adopet?
+FLYWAY_USER=USUARIO_CADASTRADO_NO_INIT_SCRIPT_SQL
+FLYWAY_PASSWORD=SENHA_CADASTRADA_NO_INIT_SCRIPT_SQL
+
+```
+
+5. Trabalho em progresso.
 
 ### Endpoints para o Tutor
 
@@ -53,7 +109,9 @@ In this challenge, we're gonna create a backend from the abstraction of the fron
 
 ### Used technologies
 
-This project are been developed using Java 17, Spring Boot 3, MySQL 8 and Docker.
+This project are been developed using Java 17, Spring Boot 3, Maven, MySQL 8 and Docker.
+
+### *Work In progress*
 
 ### Tutor endpoints
 
