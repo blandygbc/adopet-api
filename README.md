@@ -95,6 +95,24 @@ docker ps
 | Atualizar um tutor enviando  os dados no corpo da requisição | PUT       | /tutores      | Json com o tutor atualizado   |
 | Excluir um tutor                                             | DELETE    | /tutores/{id} | Mensagem de sucesso           |
 
+### Endpoints para as Roles (Perfis)
+
+|                         **Descrição**                        | **Verbo** | **Endpoint** |         **Retorno**           |
+|:------------------------------------------------------------:|:---------:|:------------:|:-----------------------------:|
+| Adicionar uma nova role                                      | POST      | /roles       | Json com a role cadastrada.   |
+| Recuperar todas as roles                                     | GET       | /roles       | Json com uma lista de roles   |
+| Atualizar uma role enviando  os dados no corpo da requisição | PUT       | /roles       | Json com a role atualizada    |
+| Excluir uma role                                             | DELETE    | /roles/{id}  | Mensagem de sucesso           |
+
+### Endpoints para o Abrigo
+
+|                         **Descrição**                         | **Verbo** |  **Endpoint** |          **Retorno**          |
+|:-------------------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
+| Adicionar um novo abrigo                                      | POST      | /abrigos      | Json com o abrigo cadastrado. |
+| Recuperar todos os abrigos                                    | GET       | /abrigos      | Json com uma lista de abrigos |
+| Detalhar um abrigo                                            | GET       | /abrigos/{id} | Json com o abrigo solicitado  |
+| Atualizar um abrigo enviando  os dados no corpo da requisição | PUT       | /abrigos      | Json com o abrigo atualizado  |
+| Excluir um abrigo                                             | DELETE    | /abrigos/{id} | Mensagem de sucesso           |
 
 ---
 
