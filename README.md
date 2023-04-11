@@ -95,6 +95,9 @@ docker ps
 | Atualizar um tutor enviando  os dados no corpo da requisição | PUT       | /tutores      | Json com o tutor atualizado   |
 | Excluir um tutor                                             | DELETE    | /tutores/{id} | Mensagem de sucesso           |
 
+
+---
+
 #### English Version
 
 # Alura Backend Challenge 6° Edition
@@ -124,7 +127,7 @@ To clone and use this project install the tools below:
 - `Docker`: [Docker](https://www.docker.com/).
 - `IDE`: Choose an IDE or Text Editor of your choice, I use [VS CODE](https://code.visualstudio.com/Download).
 
-## How to start the project
+## Getting Started
 
 1. First clone or download the project.
 2. After importing the project in the IDE or text editor run the command below in the root folder to download the dependencies:
