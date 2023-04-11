@@ -41,7 +41,7 @@ mvn install
 
 ```
 
-3. Após baixar as dependências crie um arquivo chamado `init-init-script.sql` para criar um usuário que irá manipular o banco seguindo o modelo abaixo:
+3. Após baixar as dependências crie um arquivo chamado `init-script.sql` para criar um usuário que irá manipular o banco seguindo o modelo abaixo:
 
 ```SQL
 
@@ -135,7 +135,7 @@ mvn install
 
 ```
 
-3. After downloading the dependencies create a file `init-init-script.sql` to create a user for manipulate the database with following content:
+3. After downloading the dependencies create a file `init-script.sql` to create a user for manipulate the database with following content:
 
 ```SQL
 
@@ -178,7 +178,7 @@ docker ps
 
 ```
 
-7. Done, once the container has started is just to start the Spring Boot and test the endpoints.
+7. Done, once the container has started, just start the Spring Boot and test the endpoints.
 
 ### Tutor endpoints
 
