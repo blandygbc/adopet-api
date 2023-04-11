@@ -85,7 +85,7 @@ docker ps
 ```
 7. Pronto, uma vez iniciado o container é só iniciar o Spring Boot e testar os endpoints.
 
-### Endpoints para o Tutor
+### Endpoints para os Tutors (Tutores)
 
 |                         **Descrição**                        | **Verbo** |  **Endpoint** |          **Retorno**          |
 |:------------------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
@@ -104,15 +104,34 @@ docker ps
 | Atualizar uma role enviando  os dados no corpo da requisição | PUT       | /roles       | Json com a role atualizada    |
 | Excluir uma role                                             | DELETE    | /roles/{id}  | Mensagem de sucesso           |
 
-### Endpoints para o Abrigo
+### Endpoints para os Shelters (Abrigos)
 
-|                         **Descrição**                         | **Verbo** |  **Endpoint** |          **Retorno**          |
-|:-------------------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
-| Adicionar um novo abrigo                                      | POST      | /abrigos      | Json com o abrigo cadastrado. |
-| Recuperar todos os abrigos                                    | GET       | /abrigos      | Json com uma lista de abrigos |
-| Detalhar um abrigo                                            | GET       | /abrigos/{id} | Json com o abrigo solicitado  |
-| Atualizar um abrigo enviando  os dados no corpo da requisição | PUT       | /abrigos      | Json com o abrigo atualizado  |
-| Excluir um abrigo                                             | DELETE    | /abrigos/{id} | Mensagem de sucesso           |
+|                         **Descrição**                         | **Verbo** |  **Endpoint**  |          **Retorno**          |
+|:-------------------------------------------------------------:|:---------:|:--------------:|:-----------------------------:|
+| Adicionar um novo abrigo                                      | POST      | /shelters      | Json com o abrigo cadastrado. |
+| Recuperar todos os abrigos                                    | GET       | /shelters      | Json com uma lista de abrigos |
+| Detalhar um abrigo                                            | GET       | /shelters/{id} | Json com o abrigo solicitado  |
+| Atualizar um abrigo enviando  os dados no corpo da requisição | PUT       | /shelters      | Json com o abrigo atualizado  |
+| Excluir um abrigo                                             | DELETE    | /shelters/{id} | Mensagem de sucesso           |
+
+### Endpoints para os Pets
+
+|                       **Descrição**                        | **Verbo** | **Endpoint** |        **Retorno**         |
+|:----------------------------------------------------------:|:---------:|:------------:|:--------------------------:|
+| Adicionar um novo pet                                      | POST      | /pets        | Json com o pet cadastrado. |
+| Recuperar todos os pets                                    | GET       | /pets        | Json com uma lista de pets |
+| Detalhar um pet                                            | GET       | /pets/{id}   | Json com o pet solicitado  |
+| Atualizar um pet enviando  os dados no corpo da requisição | PUT       | /pets        | Json com o pet atualizado  |
+| Excluir um pet                                             | DELETE    | /pets/{id}   | Mensagem de sucesso        |
+
+### Endpoints para as Adoptions (Adoções)
+
+|                           **Descrição**                          | **Verbo** |   **Endpoint**   |           **Retorno**            |
+|:----------------------------------------------------------------:|:---------:|:----------------:|:--------------------------------:|
+| Adicionar uma nova adoption                                      | POST      | /adoptions       | Json com a adoption cadastrada.  |
+| Recuperar todas as adoptions                                     | GET       | /adoptions       | Json com uma lista de adoptions. |
+| Atualizar uma adoption enviando  os dados no corpo da requisição | PUT       | /adoptions       | Json com a adoption atualizada.  |
+| Excluir uma adoption                                             | DELETE    | /adoptions/{id}  | Mensagem de sucesso.             |
 
 ---
 
@@ -203,10 +222,50 @@ docker ps
 
 ### Tutor endpoints
 
-|                         **Description**                      | **Verb**  |  **Endpoint** |           **Return**          |
-|:------------------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
-| Add new tutor                                                | POST      | /tutores      | Json with created tutor.      |
-| Get all tutors                                               | GET       | /tutores      | Json com uma lista de tutores |
-| Detail a tutor                                               | GET       | /tutores/{id} | Json with the tutor           |
-| Update a tutor sending the data in requisition body          | PUT       | /tutores      | Json with the updated tutor   |
-| Delete a tutor                                               | DELETE    | /tutores/{id} | Success Message               |
+|                         **Description**             | **Verb**  |  **Endpoint** |           **Return**          |
+|:---------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
+| Add new tutor                                       | POST      | /tutores      | Json with created tutor.      |
+| Get all tutors                                      | GET       | /tutores      | Json com uma lista de tutores |
+| Detail a tutor                                      | GET       | /tutores/{id} | Json with the tutor           |
+| Update a tutor sending the data in requisition body | PUT       | /tutores      | Json with the updated tutor   |
+| Delete a tutor                                      | DELETE    | /tutores/{id} | Success Message               |
+
+### Roles endpoints
+
+|                   **Description**                  | **Verb**  | **Endpoint** |         **Return**         |
+|:--------------------------------------------------:|:---------:|:------------:|:--------------------------:|
+| Add new role                                       | POST      | /roles       | Json with created role.    |
+| Get all roles                                      | GET       | /roles       | Json with a list of roles  |
+| Detail a role                                      | GET       | /roles/{id}  | Json with the role         |
+| Update a role sending the data in requisition body | PUT       | /roles       | Json with the updated role |
+| Delete a role                                      | DELETE    | /roles/{id}  | Success Message            |
+
+### Shelters endpoints
+
+|                      **Description**                  | **Verb**  |  **Endpoint**  |           **Return**          |
+|:-----------------------------------------------------:|:---------:|:--------------:|:-----------------------------:|
+| Add new shelter                                       | POST      | /shelters      | Json with created shelter.    |
+| Get all shelters                                      | GET       | /shelters      | Json with a list of shelters  |
+| Detail a shelter                                      | GET       | /shelters/{id} | Json with the shelter         |
+| Update a shelter sending the data in requisition body | PUT       | /shelters      | Json with the updated shelter |
+| Delete a shelter                                      | DELETE    | /shelters/{id} | Success Message               |
+
+### Pets endpoints
+
+|                    **Description**                | **Verb**  | **Endpoint** |        **Return**         |
+|:-------------------------------------------------:|:---------:|:------------:|:-------------------------:|
+| Add new pet                                       | POST      | /pets        | Json with created pet.    |
+| Get all pets                                      | GET       | /pets        | Jsonwith a list of pets   |
+| Detail a pet                                      | GET       | /pets/{id}   | Json with the pet         |
+| Update a pet sending the data in requisition body | PUT       | /pets        | Json with the updated pet |
+| Delete a pet                                      | DELETE    | /pets/{id}   | Success Message           |
+
+### Adoptions endpoints
+
+|                         **Description**                | **Verb**  |   **Endpoint**  |           **Return**           |
+|:------------------------------------------------------:|:---------:|:---------------:|:------------------------------:|
+| Add new adoption                                       | POST      | /adoptions      | Json with created adoption.    |
+| Get all adoptions                                      | GET       | /adoptions      | Json with a list of adoptions  |
+| Detail a adoption                                      | GET       | /adoptions/{id} | Json with the adoption         |
+| Update a adoption sending the data in requisition body | PUT       | /adoptions      | Json with the updated adoption |
+| Delete a adoption                                      | DELETE    | /adoptions/{id} | Success Message                |
