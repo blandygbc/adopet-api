@@ -8,5 +8,4 @@ public interface AdoptionRepository extends JpaRepository<Adoption, Long> {
     @Modifying
     @Query(value = "DELETE FROM Adoption a where a.id = ?1")
     Integer deleteAdoptionById(Long adoptionId);
-
 }

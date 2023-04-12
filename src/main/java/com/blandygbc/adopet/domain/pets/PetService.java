@@ -15,4 +15,9 @@ public class PetService {
         pet.adopt();
         repository.save(pet);
     }
+
+    public void setPetAvailable(Pet pet) {
+        pet.setPetAvailable();
+        repository.save(pet);
+    }
 }

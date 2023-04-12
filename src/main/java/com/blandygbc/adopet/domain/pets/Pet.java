@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.URL;
 import com.blandygbc.adopet.domain.shelter.Shelter;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,10 +33,13 @@ public class Pet {
     private String age;
     @URL
     private String image;
+    @Enumerated(EnumType.STRING)
     private PetSpecies species;
+    @Enumerated(EnumType.STRING)
     private PetSize size;
+    @Enumerated(EnumType.STRING)
     private PetStatus status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Shelter shelter;
 
     public void updateInfo(PetUpdateModel updatePet) {
@@ -85,6 +91,10 @@ public class Pet {
 
     public void adopt() {
         this.status = PetStatus.ADOPTED;
+    }
+
+    public void setPetAvailable() {
+        this.status = PetStatus.AVAILABLE;
     }
 
 }

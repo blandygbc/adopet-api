@@ -1,7 +1,6 @@
 package com.blandygbc.adopet.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,7 @@ import com.blandygbc.adopet.domain.pets.Pet;
 import com.blandygbc.adopet.domain.pets.PetModel;
 import com.blandygbc.adopet.domain.pets.PetNewModel;
 import com.blandygbc.adopet.domain.pets.PetRepository;
+import com.blandygbc.adopet.domain.pets.PetStatus;
 import com.blandygbc.adopet.domain.pets.PetUpdateModel;
 import com.blandygbc.adopet.domain.shelter.ShelterRepository;
 import com.blandygbc.adopet.util.JsonMessage;
@@ -48,14 +48,14 @@ public class PetController {
 
     @GetMapping
     public ResponseEntity<List<PetModel>> getAll() {
-        // TODO: Filter adopted pets
-        List<PetModel> shelters = repository.findAll().stream()
+        List<PetModel> pets = repository.findAllByStatusNot(PetStatus.ADOPTED)
+                .stream()
                 .map(PetModel::modelFromEntity)
-                .collect(Collectors.toList());
-        if (shelters.isEmpty()) {
+                .toList();
+        if (pets.isEmpty()) {
             throw new EmptyListException();
         }
-        return ResponseEntity.ok(shelters);
+        return ResponseEntity.ok(pets);
     }
 
     @PutMapping
