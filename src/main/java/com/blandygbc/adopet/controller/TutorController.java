@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.exception.Message;
-import com.blandygbc.adopet.domain.model.tutor.TutorModel;
-import com.blandygbc.adopet.domain.model.tutor.TutorNewModel;
-import com.blandygbc.adopet.domain.model.tutor.TutorUpdateModel;
+import com.blandygbc.adopet.domain.role.BasicRoles;
+import com.blandygbc.adopet.domain.role.Role;
+import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.tutor.Tutor;
+import com.blandygbc.adopet.domain.tutor.TutorModel;
+import com.blandygbc.adopet.domain.tutor.TutorNewModel;
 import com.blandygbc.adopet.domain.tutor.TutorRepository;
+import com.blandygbc.adopet.domain.tutor.TutorUpdateModel;
+import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -33,18 +36,22 @@ public class TutorController {
     @Autowired
     private TutorRepository repository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TutorModel> add(@Valid @RequestBody TutorNewModel newTutor) {
-        Tutor savedTutor = repository.save(new Tutor(newTutor));
-        return ResponseEntity.ok(new TutorModel(savedTutor));
+        Role role = roleRepository.getReferenceById(BasicRoles.TUTOR.getId());
+        Tutor savedTutor = repository.save(Tutor.entityFromNewModel(newTutor, role));
+        return ResponseEntity.ok(TutorModel.modelFromEntity(savedTutor));
     }
 
     @GetMapping
     public ResponseEntity<List<TutorModel>> getAll() {
         List<TutorModel> tutors = repository.findAll().stream()
-                .map(TutorModel::new)
+                .map(TutorModel::modelFromEntity)
                 .collect(Collectors.toList());
         if (tutors.isEmpty()) {
             throw new EmptyListException();
@@ -57,23 +64,23 @@ public class TutorController {
     public ResponseEntity<TutorModel> update(@Valid @RequestBody TutorUpdateModel updateTutor) {
         var tutor = repository.getReferenceById(updateTutor.id());
         tutor.updateInfo(updateTutor);
-        return ResponseEntity.ok(new TutorModel(tutor));
+        return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));
     }
 
     @DeleteMapping("/{tutorId}")
     @Transactional
-    public ResponseEntity<Message> delete(@PathVariable Long tutorId) {
+    public ResponseEntity<JsonMessage> delete(@PathVariable Long tutorId) {
         Integer result = repository.deleteTutorById(tutorId);
         if (result == 0) {
             throw new EntityNotFoundException();
         }
-        return ResponseEntity.ok(new Message("Removido com sucesso!"));
+        return ResponseEntity.ok(new JsonMessage("Removido com sucesso!"));
     }
 
     @GetMapping(value = "/{tutorId}")
     public ResponseEntity<TutorModel> detail(@PathVariable Long tutorId) {
         Tutor tutor = repository.getReferenceById(tutorId);
-        return ResponseEntity.ok(new TutorModel(tutor));
+        return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));
     }
 
 }
