@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
 import com.blandygbc.adopet.domain.role.BasicRoles;
-import com.blandygbc.adopet.domain.role.Role;
-import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.tutor.Tutor;
 import com.blandygbc.adopet.domain.tutor.TutorModel;
 import com.blandygbc.adopet.domain.tutor.TutorNewModel;
 import com.blandygbc.adopet.domain.tutor.TutorRepository;
 import com.blandygbc.adopet.domain.tutor.TutorUpdateModel;
+import com.blandygbc.adopet.domain.user.AuthService;
+import com.blandygbc.adopet.domain.user.User;
 import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -37,14 +37,14 @@ public class TutorController {
     private TutorRepository repository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private AuthService authService;
 
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TutorModel> add(@Valid @RequestBody TutorNewModel newTutor) {
-        Role role = roleRepository.getReferenceById(BasicRoles.TUTOR.getId());
-        Tutor savedTutor = repository.save(Tutor.entityFromNewModel(newTutor, role));
+        User user = authService.createUser(newTutor.email(), newTutor.password(), BasicRoles.TUTOR.getId());
+        Tutor savedTutor = repository.save(Tutor.entityFromNewModel(newTutor.name(), user));
         return ResponseEntity.ok(TutorModel.modelFromEntity(savedTutor));
     }
 

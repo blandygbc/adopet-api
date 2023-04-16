@@ -2,15 +2,14 @@ package com.blandygbc.adopet.domain.tutor;
 
 import org.hibernate.validator.constraints.URL;
 
-import com.blandygbc.adopet.domain.role.Role;
+import com.blandygbc.adopet.domain.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,27 +27,23 @@ public class Tutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Email
-    private String email;
-    private String password;
     private String phone;
     private String city;
     private String state;
     private String about;
     @URL
     private String image;
-    @ManyToOne
-    private Role role;
+    @OneToOne
+    private User user;
+
+    public Tutor(String name, User user) {
+        this.name = name;
+        this.user = user;
+    }
 
     public void updateInfo(TutorUpdateModel updateTutor) {
         if (updateTutor.name() != null) {
             this.name = updateTutor.name();
-        }
-        if (updateTutor.email() != null) {
-            this.email = updateTutor.email();
-        }
-        if (updateTutor.password() != null) {
-            this.password = updateTutor.password();
         }
         if (updateTutor.phone() != null) {
             this.phone = updateTutor.phone();
@@ -67,32 +62,20 @@ public class Tutor {
         }
     }
 
-    public static Tutor entityFromNewModel(TutorNewModel newTutor, Role role) {
-        return new Tutor(
-                null,
-                newTutor.name(),
-                newTutor.email(),
-                newTutor.password(),
-                null,
-                null,
-                null,
-                null,
-                null,
-                role);
+    public static Tutor entityFromNewModel(String name, User user) {
+        return new Tutor(name, user);
     }
 
     public static Tutor entityFromModel(TutorModel tutorModel) {
         return new Tutor(
                 tutorModel.id(),
                 tutorModel.name(),
-                tutorModel.email(),
-                null,
                 tutorModel.phone(),
                 tutorModel.city(),
                 tutorModel.state(),
                 tutorModel.about(),
                 tutorModel.image(),
-                Role.entityFromModel(tutorModel.role()));
+                User.entityFromModel(tutorModel.user()));
     }
 
 }
