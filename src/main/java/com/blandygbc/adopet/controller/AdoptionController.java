@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,8 +58,7 @@ public class AdoptionController {
 
     @DeleteMapping("/{adoptionId}")
     @Transactional
-    public ResponseEntity<JsonMessage> delete(@RequestHeader String role,
-            @PathVariable Long adoptionId) {
-        return service.deleteAdoption(role, adoptionId);
+    public ResponseEntity<JsonMessage> delete(@PathVariable Long adoptionId) {
+        return service.deleteAdoption(adoptionId);
     }
 }

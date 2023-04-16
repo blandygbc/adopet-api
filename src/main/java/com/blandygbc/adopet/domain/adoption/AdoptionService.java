@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.blandygbc.adopet.domain.exception.NotAuthorizedException;
 import com.blandygbc.adopet.domain.pets.Pet;
 import com.blandygbc.adopet.domain.pets.PetService;
-import com.blandygbc.adopet.domain.role.BasicRoles;
 import com.blandygbc.adopet.domain.tutor.Tutor;
 import com.blandygbc.adopet.util.JsonMessage;
 
@@ -27,10 +25,7 @@ public class AdoptionService {
         return ResponseEntity.ok(AdoptionModel.modelFromEntity(savedAdoption));
     }
 
-    public ResponseEntity<JsonMessage> deleteAdoption(String role, Long adoptionId) {
-        if (role == null || !role.equals(BasicRoles.SHELTER.name())) {
-            throw new NotAuthorizedException();
-        }
+    public ResponseEntity<JsonMessage> deleteAdoption(Long adoptionId) {
         Adoption adoption = repository.getReferenceById(adoptionId);
         Pet pet = adoption.getPet();
         repository.delete(adoption);

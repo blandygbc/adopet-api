@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.blandygbc.adopet.domain.exception.TokenJWTExpiredException;
 import com.blandygbc.adopet.domain.user.UserRepository;
 
 import jakarta.servlet.FilterChain;
