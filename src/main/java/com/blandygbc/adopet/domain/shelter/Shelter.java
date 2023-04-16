@@ -2,16 +2,15 @@ package com.blandygbc.adopet.domain.shelter;
 
 import org.hibernate.validator.constraints.URL;
 
-import com.blandygbc.adopet.domain.role.Role;
+import com.blandygbc.adopet.domain.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,21 +33,29 @@ public class Shelter {
     private String city;
     private String state;
     private String phone;
-    @Email
-    private String email;
-    private String password;
-    @ManyToOne
-    private Role role;
+    @OneToOne
+    User user;
+
+    public Shelter(
+            String name,
+            String image,
+            String about,
+            String city,
+            String state,
+            String phone,
+            User user) {
+        this.name = name;
+        this.phone = phone;
+        this.city = city;
+        this.state = state;
+        this.about = about;
+        this.image = image;
+        this.user = user;
+    }
 
     public void updateInfo(@Valid ShelterUpdateModel updateShelter) {
         if (updateShelter.name() != null) {
             this.name = updateShelter.name();
-        }
-        if (updateShelter.email() != null) {
-            this.email = updateShelter.email();
-        }
-        if (updateShelter.password() != null) {
-            this.password = updateShelter.password();
         }
         if (updateShelter.phone() != null) {
             this.phone = updateShelter.phone();
@@ -67,18 +74,15 @@ public class Shelter {
         }
     }
 
-    public static Shelter entityFromNewModel(ShelterNewModel shelterModel, Role role) {
+    public static Shelter entityFromNewModel(ShelterNewModel shelterModel, User user) {
         return new Shelter(
-                null,
                 shelterModel.name(),
                 shelterModel.image(),
                 shelterModel.about(),
                 shelterModel.city(),
                 shelterModel.state(),
                 shelterModel.phone(),
-                shelterModel.email(),
-                shelterModel.password(),
-                role);
+                user);
     }
 
     public static Shelter entityFromModel(ShelterModel shelterModel) {
@@ -90,9 +94,7 @@ public class Shelter {
                 shelterModel.city(),
                 shelterModel.state(),
                 shelterModel.phone(),
-                shelterModel.email(),
-                shelterModel.password(),
-                Role.entityFromModel(shelterModel.role()));
+                User.entityFromModel(shelterModel.user()));
     }
 
 }

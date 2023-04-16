@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
 import com.blandygbc.adopet.domain.role.BasicRoles;
-import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.shelter.Shelter;
 import com.blandygbc.adopet.domain.shelter.ShelterModel;
 import com.blandygbc.adopet.domain.shelter.ShelterNewModel;
 import com.blandygbc.adopet.domain.shelter.ShelterRepository;
 import com.blandygbc.adopet.domain.shelter.ShelterUpdateModel;
+import com.blandygbc.adopet.domain.user.AuthService;
+import com.blandygbc.adopet.domain.user.User;
 import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -36,14 +37,14 @@ public class ShelterController {
     private ShelterRepository repository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private AuthService authService;
 
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ShelterModel> add(@Valid @RequestBody ShelterNewModel newShelter) {
-        var role = roleRepository.getReferenceById(BasicRoles.SHELTER.getId());
-        var savedShelter = repository.save(Shelter.entityFromNewModel(newShelter, role));
+        User user = authService.createUser(newShelter.email(), newShelter.password(), BasicRoles.SHELTER.getId());
+        var savedShelter = repository.save(Shelter.entityFromNewModel(newShelter, user));
         return ResponseEntity.ok(ShelterModel.modelFromEntity(savedShelter));
     }
 

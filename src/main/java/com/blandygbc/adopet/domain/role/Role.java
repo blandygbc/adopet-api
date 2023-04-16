@@ -1,5 +1,7 @@
 package com.blandygbc.adopet.domain.role;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Role {
+public class Role implements Serializable {
+    private static final long serialVersionUID = 2405172041950251807L;
+
+    private static final String ROLE_PREFIX = "ROLE_";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,6 +50,10 @@ public class Role {
                 null,
                 newRole.name(),
                 newRole.description());
+    }
+
+    public String getSpringSecurityRole() {
+        return ROLE_PREFIX + this.name;
     }
 
 }

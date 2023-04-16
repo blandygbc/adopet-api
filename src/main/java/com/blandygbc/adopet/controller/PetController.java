@@ -48,7 +48,7 @@ public class PetController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<PetModel>> getAll(@PageableDefault(size = 9) Pageable page) {
+    public ResponseEntity<Page<PetModel>> getAll(@PageableDefault(size = 10) Pageable page) {
         Page<PetModel> petsPage = repository.findAllByStatusNot(PetStatus.ADOPTED, page)
                 .map(PetModel::modelFromEntity);
         if (petsPage.isEmpty()) {
