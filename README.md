@@ -1,6 +1,6 @@
 ![Alura Challenges](https://github.com/blandygbc/adopet/blob/master/alura_challenges.jpeg?raw=true)
 
-[🇺🇲 English Version](#-english-version)
+[:united_nations: English Version](#-english-version)
 
 # Alura Challenge Back-End 6° Edição
 
@@ -135,7 +135,7 @@ docker ps
 
 ---
 
-#### 🇺🇲 English Version
+#### :united_nations: English Version
 
 # Alura Backend Challenge 6° Edition
 
