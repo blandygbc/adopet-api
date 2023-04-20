@@ -1,16 +1,16 @@
-![Alura Challenges](https://github.com/blandygbc/adopet/blob/master/alura_challenges.jpeg?raw=true)
+![Alura Challenges](https://github.com/blandygbc/adopet/blob/master/repo_resources/alura_challenges.jpeg?raw=true)
 
-[ 🇺🇸 English Version](#-english-version)
+[🇺🇸 English Version](#-english-version)
 
 # Alura Challenge Back-End 6° Edição
 
-![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/Adopet_logo.png?raw=true)
+![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/repo_resources/Adopet_logo.png?raw=true)
 
-### Resumo detalhado do Challenge Back-End
+## Resumo detalhado do Challenge Back-End
 
 Nosso Challenge é dividido em 3 fases, que são distribuídas entre 4 semanas;
 
-Neste Challenge, vamos criar o Back-End a partir da abstração do Front-End ao desenvolver o Adopet, uma plataforma para conectar pessoas que desejam 
+Neste Challenge, vamos criar o Back-End a partir da abstração do Front-End ao desenvolver o Adopet, uma plataforma para conectar pessoas que desejam
 adotar animais de estimação a abrigos.
 
 - Semana 01: Criação de API e integração com Banco de Dados.
@@ -71,6 +71,7 @@ FLYWAY_PASSWORD=SENHA_CADASTRADA_NO_INIT_SCRIPT_SQL
 ```
 
 5. Agora crie o container docker do banco com o comando abaixo:
+
 ```BASH
 
 docker compose --env-file .env up -d
@@ -78,11 +79,13 @@ docker compose --env-file .env up -d
 ```
 
 6. Verifique se o container foi startado corretamente com o comando abaixo:
+
 ```BASH
 
 docker ps
 
 ```
+
 7. Pronto, uma vez iniciado o container é só iniciar o Spring Boot e testar os endpoints.
 
 ### Endpoints para os Tutors (Tutores)
