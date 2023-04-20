@@ -142,7 +142,7 @@ docker ps
 
 # Alura Backend Challenge 6° Edition
 
-![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/Adopet_logo.png?raw=true)
+![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/repo_resources/Adopet_logo.png?raw=true)
 
 ### Detailed resume of the Backend Challenge.
 
