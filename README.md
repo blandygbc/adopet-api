@@ -89,53 +89,27 @@ docker ps
 
 7. Pronto, uma vez iniciado o container é só iniciar o Spring Boot e testar os endpoints.
 
-### Endpoints para os Tutors (Tutores)
+8. Para testar os endpoints digite no navegador `http://localhost:8080/swagger-ui/index.html` e irá abrir a tela abaixo:
 
-|                         **Descrição**                        | **Verbo** |  **Endpoint** |          **Retorno**          |
-|:------------------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
-| Adicionar um novo tutor                                      | POST      | /tutores      | Json com o tutor cadastrado.  |
-| Recuperar todos os tutores                                   | GET       | /tutores      | Json com uma lista de tutores |
-| Detalhar um tutor                                            | GET       | /tutores/{id} | Json com o tutor solicitado   |
-| Atualizar um tutor enviando  os dados no corpo da requisição | PUT       | /tutores      | Json com o tutor atualizado   |
-| Excluir um tutor                                             | DELETE    | /tutores/{id} | Mensagem de sucesso           |
+![Tela do Swagger](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/1_adopet_swagger_ui.jpeg?raw=true)
 
-### Endpoints para as Roles (Perfis)
+**OBS: Os endpoints que tem um cadeado exigem um token que é dado ao logar no sistema.**
 
-|                         **Descrição**                        | **Verbo** | **Endpoint** |         **Retorno**           |
-|:------------------------------------------------------------:|:---------:|:------------:|:-----------------------------:|
-| Adicionar uma nova role                                      | POST      | /roles       | Json com a role cadastrada.   |
-| Recuperar todas as roles                                     | GET       | /roles       | Json com uma lista de roles   |
-| Atualizar uma role enviando  os dados no corpo da requisição | PUT       | /roles       | Json com a role atualizada    |
-| Excluir uma role                                             | DELETE    | /roles/{id}  | Mensagem de sucesso           |
+09. Para testa-los no `swagger` siga os seguintes passos, primeiro crie um abrigo ou tutor para poder logar no sistema, aqui vamos criar um abrigo no endpoint abaixo:
 
-### Endpoints para os Shelters (Abrigos)
+![Endpoint do shelter](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/2_adopet_swagger_shelter.jpeg?raw=true)
 
-|                         **Descrição**                         | **Verbo** |  **Endpoint**  |          **Retorno**          |
-|:-------------------------------------------------------------:|:---------:|:--------------:|:-----------------------------:|
-| Adicionar um novo abrigo                                      | POST      | /shelters      | Json com o abrigo cadastrado. |
-| Recuperar todos os abrigos                                    | GET       | /shelters      | Json com uma lista de abrigos |
-| Detalhar um abrigo                                            | GET       | /shelters/{id} | Json com o abrigo solicitado  |
-| Atualizar um abrigo enviando  os dados no corpo da requisição | PUT       | /shelters      | Json com o abrigo atualizado  |
-| Excluir um abrigo                                             | DELETE    | /shelters/{id} | Mensagem de sucesso           |
+10. Clicando em `try out` você poderá enviar uma requisição com as informações de cadastro seguindo o modelo demonstrado no próprio endpoint.
 
-### Endpoints para os Pets
+11. Com o abrigo criado vá no endpoint de login e faça uma requisição e na resposta receberá um token:
 
-|                       **Descrição**                        | **Verbo** | **Endpoint** |        **Retorno**         |
-|:----------------------------------------------------------:|:---------:|:------------:|:--------------------------:|
-| Adicionar um novo pet                                      | POST      | /pets        | Json com o pet cadastrado. |
-| Recuperar todos os pets                                    | GET       | /pets        | Json com uma lista de pets |
-| Detalhar um pet                                            | GET       | /pets/{id}   | Json com o pet solicitado  |
-| Atualizar um pet enviando  os dados no corpo da requisição | PUT       | /pets        | Json com o pet atualizado  |
-| Excluir um pet                                             | DELETE    | /pets/{id}   | Mensagem de sucesso        |
+![Endpoint do login](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/3_adopet_swagger_login.jpeg?raw=true)
 
-### Endpoints para as Adoptions (Adoções)
+12. Com o token em mãos vá para o topo da tela e clique no botão `Authorize` que irá abrir um modal com o campo para incluí-lo:
 
-|                           **Descrição**                          | **Verbo** |   **Endpoint**   |           **Retorno**            |
-|:----------------------------------------------------------------:|:---------:|:----------------:|:--------------------------------:|
-| Adicionar uma nova adoption                                      | POST      | /adoptions       | Json com a adoption cadastrada.  |
-| Recuperar todas as adoptions                                     | GET       | /adoptions       | Json com uma lista de adoptions. |
-| Atualizar uma adoption enviando  os dados no corpo da requisição | PUT       | /adoptions       | Json com a adoption atualizada.  |
-| Excluir uma adoption                                             | DELETE    | /adoptions/{id}  | Mensagem de sucesso.             |
+![Modal do Authorize](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/4_adopet_swagger_bearer.jpeg?raw=true)
+
+13. Após incluir o token no campo clique em `Authorize` e pronto! Agora você poderá testar todos os endpoints.
 
 ---
 
@@ -143,7 +117,7 @@ docker ps
 
 # Alura Backend Challenge 6° Edition
 
-![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/Adopet_logo.png?raw=true)
+![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/repo_resources/Adopet_logo.png?raw=true)
 
 ### Detailed resume of the Backend Challenge.
 
@@ -225,52 +199,24 @@ docker ps
 
 7. Done, once the container has started, just start the Spring Boot and test the endpoints.
 
-### Tutor endpoints
+8. To test the endpoints enter this address in the browser `http://localhost:8080/swagger-ui/index.html` then will show up on the screen below:
 
-|                         **Description**             | **Verb**  |  **Endpoint** |           **Return**          |
-|:---------------------------------------------------:|:---------:|:-------------:|:-----------------------------:|
-| Add new tutor                                       | POST      | /tutores      | Json with created tutor.      |
-| Get all tutors                                      | GET       | /tutores      | Json com uma lista de tutores |
-| Detail a tutor                                      | GET       | /tutores/{id} | Json with the tutor           |
-| Update a tutor sending the data in requisition body | PUT       | /tutores      | Json with the updated tutor   |
-| Delete a tutor                                      | DELETE    | /tutores/{id} | Success Message               |
+![Swagger UI](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/1_adopet_swagger_ui.jpeg?raw=true)
 
-### Roles endpoints
+**PS: The endpoints that have a locker demand a token that is given when you login into the system.**
 
-|                   **Description**                  | **Verb**  | **Endpoint** |         **Return**         |
-|:--------------------------------------------------:|:---------:|:------------:|:--------------------------:|
-| Add new role                                       | POST      | /roles       | Json with created role.    |
-| Get all roles                                      | GET       | /roles       | Json with a list of roles  |
-| Detail a role                                      | GET       | /roles/{id}  | Json with the role         |
-| Update a role sending the data in requisition body | PUT       | /roles       | Json with the updated role |
-| Delete a role                                      | DELETE    | /roles/{id}  | Success Message            |
+09. To test them on `swagger` follow this, first sign up as a shelter or a tutor to log into the system, here we're gonna sign up as a shelter in the endpoint below:
 
-### Shelters endpoints
+![Shelter endpoint](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/2_adopet_swagger_shelter.jpeg?raw=true)
 
-|                      **Description**                  | **Verb**  |  **Endpoint**  |           **Return**          |
-|:-----------------------------------------------------:|:---------:|:--------------:|:-----------------------------:|
-| Add new shelter                                       | POST      | /shelters      | Json with created shelter.    |
-| Get all shelters                                      | GET       | /shelters      | Json with a list of shelters  |
-| Detail a shelter                                      | GET       | /shelters/{id} | Json with the shelter         |
-| Update a shelter sending the data in requisition body | PUT       | /shelters      | Json with the updated shelter |
-| Delete a shelter                                      | DELETE    | /shelters/{id} | Success Message               |
+10. Click on `try out` to send a requisition with info that is necessary to create one, as the model shown in the endpoint.
 
-### Pets endpoints
+11. With the shelter created, then go to the login endpoint and do a requisition with the registered info and you'll receive a token:
 
-|                    **Description**                | **Verb**  | **Endpoint** |        **Return**         |
-|:-------------------------------------------------:|:---------:|:------------:|:-------------------------:|
-| Add new pet                                       | POST      | /pets        | Json with created pet.    |
-| Get all pets                                      | GET       | /pets        | Jsonwith a list of pets   |
-| Detail a pet                                      | GET       | /pets/{id}   | Json with the pet         |
-| Update a pet sending the data in requisition body | PUT       | /pets        | Json with the updated pet |
-| Delete a pet                                      | DELETE    | /pets/{id}   | Success Message           |
+![Login endpoint](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/3_adopet_swagger_login.jpeg?raw=true)
 
-### Adoptions endpoints
+12. With the token in hands go to the top of screen then click on the `Authorize` button that will show a modal with a field to fill it:
 
-|                         **Description**                | **Verb**  |   **Endpoint**  |           **Return**           |
-|:------------------------------------------------------:|:---------:|:---------------:|:------------------------------:|
-| Add new adoption                                       | POST      | /adoptions      | Json with created adoption.    |
-| Get all adoptions                                      | GET       | /adoptions      | Json with a list of adoptions  |
-| Detail a adoption                                      | GET       | /adoptions/{id} | Json with the adoption         |
-| Update a adoption sending the data in requisition body | PUT       | /adoptions      | Json with the updated adoption |
-| Delete a adoption                                      | DELETE    | /adoptions/{id} | Success Message                |
+![Authorize modal](https://github.com/blandygbc/adopet-api/blob/better-docs/repo_resources/4_adopet_swagger_bearer.jpeg?raw=true)
+
+13. After paste the token in the field click on the `Authorize` button and thats it! Now you can test all the endpoints without any problems.
