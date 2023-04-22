@@ -1,10 +1,10 @@
-![Alura Challenges](https://github.com/blandygbc/adopet/blob/master/alura_challenges.jpeg?raw=true)
+![Alura Challenges](https://github.com/blandygbc/adopet/blob/week3/alura_challenges.jpeg?raw=true)
 
 [English Version](#english-version)
 
 # Alura Challenge Back-End 6° Edição
 
-![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/Adopet_logo.png?raw=true)
+![Adopet Logo](https://github.com/blandygbc/adopet/blob/week3/Adopet_logo.png?raw=true)
 
 ### Resumo detalhado do Challenge Back-End
 
@@ -139,7 +139,7 @@ docker ps
 
 # Alura Backend Challenge 6° Edition
 
-![Adopet Logo](https://github.com/blandygbc/adopet/blob/master/Adopet_logo.png?raw=true)
+![Adopet Logo](https://github.com/blandygbc/adopet/blob/week3/Adopet_logo.png?raw=true)
 
 ### Detailed resume of the Backend Challenge.
 
