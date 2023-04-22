@@ -22,11 +22,13 @@ import com.blandygbc.adopet.domain.pets.PetRepository;
 import com.blandygbc.adopet.domain.tutor.TutorRepository;
 import com.blandygbc.adopet.util.JsonMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/adoptions")
+@SecurityRequirement(name = "bearer-key")
 public class AdoptionController {
     @Autowired
     private AdoptionRepository repository;

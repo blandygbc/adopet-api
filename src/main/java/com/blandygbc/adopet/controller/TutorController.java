@@ -25,6 +25,7 @@ import com.blandygbc.adopet.domain.user.AuthService;
 import com.blandygbc.adopet.domain.user.User;
 import com.blandygbc.adopet.util.JsonMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -49,6 +50,7 @@ public class TutorController {
     }
 
     @GetMapping
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<List<TutorModel>> getAll() {
         List<TutorModel> tutors = repository.findAll().stream()
                 .map(TutorModel::modelFromEntity)
@@ -61,6 +63,7 @@ public class TutorController {
 
     @PutMapping
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<TutorModel> update(@Valid @RequestBody TutorUpdateModel updateTutor) {
         var tutor = repository.getReferenceById(updateTutor.id());
         tutor.updateInfo(updateTutor);
@@ -69,6 +72,7 @@ public class TutorController {
 
     @DeleteMapping("/{tutorId}")
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<JsonMessage> delete(@PathVariable Long tutorId) {
         Integer result = repository.deleteTutorById(tutorId);
         if (result == 0) {
@@ -78,6 +82,7 @@ public class TutorController {
     }
 
     @GetMapping(value = "/{tutorId}")
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<TutorModel> detail(@PathVariable Long tutorId) {
         Tutor tutor = repository.getReferenceById(tutorId);
         return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));

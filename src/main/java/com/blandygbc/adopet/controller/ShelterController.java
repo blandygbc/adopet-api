@@ -25,6 +25,7 @@ import com.blandygbc.adopet.domain.user.AuthService;
 import com.blandygbc.adopet.domain.user.User;
 import com.blandygbc.adopet.util.JsonMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -49,6 +50,7 @@ public class ShelterController {
     }
 
     @GetMapping
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<List<ShelterModel>> getAll() {
         List<ShelterModel> shelters = repository.findAll().stream()
                 .map(ShelterModel::modelFromEntity)
@@ -61,6 +63,7 @@ public class ShelterController {
 
     @PutMapping
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<ShelterModel> update(@Valid @RequestBody ShelterUpdateModel updateShelter) {
         var shelter = repository.getReferenceById(updateShelter.id());
         shelter.updateInfo(updateShelter);
@@ -69,6 +72,7 @@ public class ShelterController {
 
     @DeleteMapping("/{shelterId}")
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<JsonMessage> delete(@PathVariable Long shelterId) {
         Integer result = repository.deleteShelterById(shelterId);
         if (result == 0) {
@@ -78,6 +82,7 @@ public class ShelterController {
     }
 
     @GetMapping(value = "/{shelterId}")
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<ShelterModel> detail(@PathVariable Long shelterId) {
         var shelter = repository.getReferenceById(shelterId);
         return ResponseEntity.ok(ShelterModel.modelFromEntity(shelter));

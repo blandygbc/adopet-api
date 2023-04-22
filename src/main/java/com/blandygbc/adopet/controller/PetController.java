@@ -24,12 +24,14 @@ import com.blandygbc.adopet.domain.pets.PetUpdateModel;
 import com.blandygbc.adopet.domain.shelter.ShelterRepository;
 import com.blandygbc.adopet.util.JsonMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("pets")
+@SecurityRequirement(name = "bearer-key")
 public class PetController {
 
     @Autowired
