@@ -22,12 +22,14 @@ import com.blandygbc.adopet.domain.role.RoleRepository;
 import com.blandygbc.adopet.domain.role.RoleUpdateModel;
 import com.blandygbc.adopet.util.JsonMessage;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/roles")
+@SecurityRequirement(name = "bearer-key")
 public class RoleController {
 
     @Autowired

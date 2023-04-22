@@ -39,6 +39,7 @@ public class SecurityConfigurations {
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/tutores").permitAll()
                 .requestMatchers(HttpMethod.POST, "/shelters").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/pets/**").hasRole(BasicRoles.SHELTER.name())
                 .requestMatchers(HttpMethod.DELETE, "/adoptions/**").hasRole(BasicRoles.SHELTER.name())
                 .anyRequest().authenticated()
