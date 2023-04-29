@@ -41,4 +41,9 @@ public class AuthService implements UserDetailsService {
         return repository.findByEmail(email);
     }
 
+    public void updateUser(User user, String email, String password) {
+        user.updateInfo(email, password);
+        repository.save(user);
+    }
+
 }

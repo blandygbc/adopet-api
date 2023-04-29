@@ -17,6 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
@@ -92,5 +94,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void updateInfo(String emailUpdate, String passwordUpdate) {
+        if (emailUpdate != null
+                && !emailUpdate.isBlank()) {
+            this.email = emailUpdate;
+        }
+        if (passwordUpdate != null
+                && !passwordUpdate.isBlank()) {
+            this.password = passwordUpdate;
+        }
     }
 }
