@@ -55,8 +55,7 @@ public class Tutor {
                 && !updateTutor.name().isBlank()) {
             this.name = updateTutor.name();
         }
-        if (updateTutor.phone() != null
-                && !updateTutor.phone().isBlank()) {
+        if (updateTutor.phone() != null) {
             this.phone = updateTutor.phone();
         }
         if (updateTutor.city() != null

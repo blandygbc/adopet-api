@@ -279,12 +279,11 @@ public class TutorUpdateModelTest {
                 }
         }
 
-        @ParameterizedTest
-        @NullSource
+        @Test
         @DisplayName("Validate phone must not update tutor when phone is null")
-        void validatePhone_MustNotUpdateTutor_WhenPhoneIsNull(String blankPhone) {
+        void validatePhone_MustNotUpdateTutor_WhenPhoneIsNull() {
                 TutorUpdateModel updateTutor = TutorUpdateModel.builder()
-                                .phone(blankPhone)
+                                .phone(null)
                                 .build();
                 // Original 21999999999
                 var tutor = getTutorComplete();
