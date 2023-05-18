@@ -7,7 +7,6 @@ public class EmptyListException extends ApiException {
     }
 
     public EmptyListException() {
-        super("");
     }
 
 }

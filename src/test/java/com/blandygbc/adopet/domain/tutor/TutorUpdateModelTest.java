@@ -277,42 +277,44 @@ public class TutorUpdateModelTest {
 
                         Assertions.assertThat(actualViolations).isEmpty();
                 }
+
+                @Test
+                @DisplayName("Validate phone must not update tutor when phone is null")
+                void validatePhone_MustNotUpdateTutor_WhenPhoneIsNull() {
+                        TutorUpdateModel updateTutor = TutorUpdateModel.builder()
+                                        .phone(null)
+                                        .build();
+                        // Original 21999999999
+                        var tutor = getTutorComplete();
+
+                        tutor.updateInfo(updateTutor);
+
+                        Set<ConstraintViolation<TutorUpdateModel>> actualViolations = validator
+                                        .validateProperty(updateTutor, "phone");
+
+                        Assertions.assertThat(actualViolations).isEmpty();
+
+                        Assertions.assertThat(tutor.getPhone()).isEqualTo("21999999999");
+                }
+
+                @ParameterizedTest
+                @EmptySource
+                @ValueSource(strings = { "   ", "\t", "\n" })
+                @DisplayName("Validate phone must return violations when phone is blank")
+                void validatePhone_MustReturnViolations_WhenPhoneIsBlank(String blankPhone) {
+                        TutorUpdateModel updateTutor = TutorUpdateModel.builder()
+                                        .phone(blankPhone)
+                                        .build();
+
+                        Set<ConstraintViolation<TutorUpdateModel>> actualViolations = validator
+                                        .validateProperty(updateTutor, "phone");
+
+                        List<String> actualMessages = actualViolations.stream().map(ConstraintViolation::getMessage)
+                                        .toList();
+
+                        Assertions.assertThat(actualViolations).isNotEmpty();
+                        Assertions.assertThat(actualMessages).contains("tamanho deve ser entre 10 e 11");
+                }
         }
 
-        @Test
-        @DisplayName("Validate phone must not update tutor when phone is null")
-        void validatePhone_MustNotUpdateTutor_WhenPhoneIsNull() {
-                TutorUpdateModel updateTutor = TutorUpdateModel.builder()
-                                .phone(null)
-                                .build();
-                // Original 21999999999
-                var tutor = getTutorComplete();
-
-                tutor.updateInfo(updateTutor);
-
-                Set<ConstraintViolation<TutorUpdateModel>> actualViolations = validator
-                                .validateProperty(updateTutor, "phone");
-
-                Assertions.assertThat(actualViolations).isEmpty();
-
-                Assertions.assertThat(tutor.getPhone()).isEqualTo("21999999999");
-        }
-
-        @ParameterizedTest
-        @EmptySource
-        @ValueSource(strings = { "   ", "\t", "\n" })
-        @DisplayName("Validate phone must return violations when phone is blank")
-        void validatePhone_MustReturnViolations_WhenPhoneIsBlank(String blankPhone) {
-                TutorUpdateModel updateTutor = TutorUpdateModel.builder()
-                                .phone(blankPhone)
-                                .build();
-
-                Set<ConstraintViolation<TutorUpdateModel>> actualViolations = validator
-                                .validateProperty(updateTutor, "phone");
-
-                List<String> actualMessages = actualViolations.stream().map(ConstraintViolation::getMessage).toList();
-
-                Assertions.assertThat(actualViolations).isNotEmpty();
-                Assertions.assertThat(actualMessages).contains("tamanho deve ser entre 10 e 11");
-        }
 }

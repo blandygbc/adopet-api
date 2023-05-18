@@ -37,7 +37,7 @@ public class SecurityConfigurations {
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "/tutores").permitAll()
+                .requestMatchers(HttpMethod.POST, "/tutors").permitAll()
                 .requestMatchers(HttpMethod.POST, "/shelters").permitAll()
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/pets/**").hasRole(BasicRoles.SHELTER.name())

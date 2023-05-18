@@ -45,11 +45,6 @@ public class Tutor {
     @OneToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST }, optional = false, fetch = FetchType.LAZY)
     private User user;
 
-    public Tutor(String name, User user) {
-        this.name = name;
-        this.user = user;
-    }
-
     public void updateInfo(TutorUpdateModel updateTutor) {
         if (updateTutor.name() != null
                 && !updateTutor.name().isBlank()) {
@@ -74,22 +69,6 @@ public class Tutor {
                 && !updateTutor.image().isBlank()) {
             this.image = updateTutor.image();
         }
-    }
-
-    public static Tutor entityFromNewModel(String name, User user) {
-        return new Tutor(name, user);
-    }
-
-    public static Tutor entityFromModel(TutorModel tutorModel) {
-        return new Tutor(
-                tutorModel.id(),
-                tutorModel.name(),
-                tutorModel.phone(),
-                tutorModel.city(),
-                tutorModel.state(),
-                tutorModel.about(),
-                tutorModel.image(),
-                User.entityFromModel(tutorModel.user()));
     }
 
 }

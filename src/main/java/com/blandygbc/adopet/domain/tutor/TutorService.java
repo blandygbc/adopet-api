@@ -3,6 +3,7 @@ package com.blandygbc.adopet.domain.tutor;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
@@ -18,12 +19,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class TutorService {
+    @Autowired
     private TutorRepository repository;
+    @Autowired
     private AuthService authService;
+    @Autowired
+    private TutorMapper mapper;
 
     public Tutor createTutor(TutorNewModel newTutor) {
         User user = authService.createUser(newTutor.email(), newTutor.password(), BasicRoles.TUTOR.getId());
-        Tutor savedTutor = repository.save(Tutor.entityFromNewModel(newTutor.name(), user));
+        Tutor savedTutor = repository.save(mapper.newModelToEntity(newTutor.name(), user));
         log.info("successfully created tutor with id: {}", savedTutor.getId());
         return savedTutor;
     }
@@ -34,7 +39,7 @@ public class TutorService {
 
     public List<TutorModel> findAll() {
         List<TutorModel> tutors = repository.findAll().stream()
-                .map(TutorModel::modelFromEntity)
+                .map(t -> mapper.entityToModel(t))
                 .collect(Collectors.toList());
         if (tutors.isEmpty()) {
             log.info("No registered tutor yet");

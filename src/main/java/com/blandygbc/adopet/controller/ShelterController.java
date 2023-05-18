@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
 import com.blandygbc.adopet.domain.role.BasicRoles;
-import com.blandygbc.adopet.domain.shelter.Shelter;
+import com.blandygbc.adopet.domain.shelter.ShelterMapper;
 import com.blandygbc.adopet.domain.shelter.ShelterModel;
 import com.blandygbc.adopet.domain.shelter.ShelterNewModel;
 import com.blandygbc.adopet.domain.shelter.ShelterRepository;
@@ -40,20 +40,23 @@ public class ShelterController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private ShelterMapper mapper;
+
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ShelterModel> add(@Valid @RequestBody ShelterNewModel newShelter) {
         User user = authService.createUser(newShelter.email(), newShelter.password(), BasicRoles.SHELTER.getId());
-        var savedShelter = repository.save(Shelter.entityFromNewModel(newShelter, user));
-        return ResponseEntity.ok(ShelterModel.modelFromEntity(savedShelter));
+        var savedShelter = repository.save(mapper.newModelToEntity(newShelter, user));
+        return ResponseEntity.ok(mapper.entityToModel(savedShelter));
     }
 
     @GetMapping
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<List<ShelterModel>> getAll() {
         List<ShelterModel> shelters = repository.findAll().stream()
-                .map(ShelterModel::modelFromEntity)
+                .map(s -> mapper.entityToModel(s))
                 .collect(Collectors.toList());
         if (shelters.isEmpty()) {
             throw new EmptyListException();
@@ -67,7 +70,7 @@ public class ShelterController {
     public ResponseEntity<ShelterModel> update(@Valid @RequestBody ShelterUpdateModel updateShelter) {
         var shelter = repository.getReferenceById(updateShelter.id());
         shelter.updateInfo(updateShelter);
-        return ResponseEntity.ok(ShelterModel.modelFromEntity(shelter));
+        return ResponseEntity.ok(mapper.entityToModel(shelter));
     }
 
     @DeleteMapping("/{shelterId}")
@@ -85,7 +88,7 @@ public class ShelterController {
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<ShelterModel> detail(@PathVariable Long shelterId) {
         var shelter = repository.getReferenceById(shelterId);
-        return ResponseEntity.ok(ShelterModel.modelFromEntity(shelter));
+        return ResponseEntity.ok(mapper.entityToModel(shelter));
     }
 
 }

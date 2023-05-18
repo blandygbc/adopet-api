@@ -10,7 +10,7 @@ public abstract class TutorUtils {
         return TutorNewModel.builder()
                 .name("Jessica")
                 .email("jessica@email.com")
-                .password("123456")
+                .password("12345678")
                 .build();
     }
 
@@ -18,7 +18,7 @@ public abstract class TutorUtils {
         return TutorNewModel.builder()
                 .name("Jessica")
                 .email(email)
-                .password("123456")
+                .password("12345678")
                 .build();
     }
 
@@ -34,7 +34,7 @@ public abstract class TutorUtils {
         return TutorNewModel.builder()
                 .name(name)
                 .email("jessica@email.com")
-                .password("123456")
+                .password("12345678")
                 .build();
     }
 
@@ -42,6 +42,19 @@ public abstract class TutorUtils {
         return TutorModel.builder()
                 .id(1l)
                 .name("Jessica")
+                .user(getUserModel())
+                .build();
+    }
+
+    public static TutorModel getTutorModelComplete() {
+        return TutorModel.builder()
+                .id(1l)
+                .name("Jessica")
+                .image("http://some.url.com/image")
+                .phone("21999999999")
+                .city("Rio de janeiro")
+                .state("RJ")
+                .about("Some nice tutor")
                 .user(getUserModel())
                 .build();
     }
@@ -60,6 +73,45 @@ public abstract class TutorUtils {
                 .name("Jessica")
                 .image("http://some.url.com/image")
                 .phone("21999999999")
+                .city("Rio de janeiro")
+                .state("RJ")
+                .about("Some nice tutor")
+                .user(getUser())
+                .build();
+    }
+
+    public static Tutor getTutorWithName(String name) {
+        return Tutor.builder()
+                .id(1l)
+                .name(name)
+                .image("http://some.url.com/image")
+                .phone("21999999999")
+                .city("Rio de janeiro")
+                .state("RJ")
+                .about("Some nice tutor")
+                .user(getUser())
+                .build();
+    }
+
+    public static Tutor getTutorWithImage(String image) {
+        return Tutor.builder()
+                .id(1l)
+                .name("Jessica")
+                .image(image)
+                .phone("21999999999")
+                .city("Rio de janeiro")
+                .state("RJ")
+                .about("Some nice tutor")
+                .user(getUser())
+                .build();
+    }
+
+    public static Tutor getTutorWithPhone(String phone) {
+        return Tutor.builder()
+                .id(1l)
+                .name("Jessica")
+                .image("http://some.url.com/image")
+                .phone(phone)
                 .city("Rio de janeiro")
                 .state("RJ")
                 .about("Some nice tutor")

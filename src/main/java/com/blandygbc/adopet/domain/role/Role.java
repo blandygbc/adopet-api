@@ -40,20 +40,6 @@ public class Role implements Serializable {
         }
     }
 
-    public static Role entityFromModel(RoleModel roleModel) {
-        return new Role(
-                roleModel.id(),
-                roleModel.name(),
-                roleModel.description());
-    }
-
-    public static Role entityFromNewModel(RoleNewModel newRole) {
-        return new Role(
-                null,
-                newRole.name(),
-                newRole.description());
-    }
-
     public String getSpringSecurityRole() {
         return ROLE_PREFIX + this.name;
     }

@@ -14,15 +14,4 @@ public record TutorModel(
         String about,
         String image,
         UserModel user) {
-
-    public static TutorModel modelFromEntity(Tutor tutor) {
-        return new TutorModel(tutor.getId(),
-                tutor.getName(),
-                tutor.getPhone(),
-                tutor.getCity(),
-                tutor.getState(),
-                tutor.getAbout(),
-                tutor.getImage(),
-                UserModel.modelFromEntity(tutor.getUser()));
-    }
 }

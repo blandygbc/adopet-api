@@ -40,32 +40,6 @@ public class User implements UserDetails {
     @ManyToOne
     private Role role;
 
-    public User(Long id, String email, Role role) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
-    }
-
-    public User(String email, String password, Role role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public static User buildNew(String email, String password, Role role) {
-        return new User(
-                email,
-                password,
-                role);
-    }
-
-    public static User entityFromModel(UserModel userModel) {
-        return new User(
-                userModel.id(),
-                userModel.email(),
-                Role.entityFromModel(userModel.role()));
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.getSpringSecurityRole()));
