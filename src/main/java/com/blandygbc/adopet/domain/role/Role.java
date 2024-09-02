@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @EqualsAndHashCode(of = "id")
 public class Role implements Serializable {
     private static final long serialVersionUID = 2405172041950251807L;
@@ -36,20 +38,6 @@ public class Role implements Serializable {
         if (updateRole.description() != null) {
             this.description = updateRole.description();
         }
-    }
-
-    public static Role entityFromModel(RoleModel roleModel) {
-        return new Role(
-                roleModel.id(),
-                roleModel.name(),
-                roleModel.description());
-    }
-
-    public static Role entityFromNewModel(RoleNewModel newRole) {
-        return new Role(
-                null,
-                newRole.name(),
-                newRole.description());
     }
 
     public String getSpringSecurityRole() {

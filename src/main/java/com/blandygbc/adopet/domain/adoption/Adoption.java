@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode(of = "id")
 public class Adoption {
     @Id
@@ -32,20 +34,4 @@ public class Adoption {
     @ManyToOne
     Tutor tutor;
     LocalDateTime date;
-
-    public static Adoption entityFromModel(AdoptionModel adoptionModel) {
-        return new Adoption(
-                adoptionModel.id(),
-                Pet.entityFromModel(adoptionModel.pet()),
-                Tutor.entityFromModel(adoptionModel.tutor()),
-                adoptionModel.date());
-    }
-
-    public static Adoption buildNew(Pet pet, Tutor tutor) {
-        return new Adoption(
-                null,
-                pet,
-                tutor,
-                LocalDateTime.now());
-    }
 }

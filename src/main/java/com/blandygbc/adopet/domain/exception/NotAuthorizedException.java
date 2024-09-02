@@ -7,7 +7,6 @@ public class NotAuthorizedException extends ApiException {
     }
 
     public NotAuthorizedException() {
-        super("");
     }
 
 }

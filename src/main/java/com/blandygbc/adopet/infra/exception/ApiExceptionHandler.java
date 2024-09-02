@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.blandygbc.adopet.domain.exception.ApiJWTException;
 import com.blandygbc.adopet.domain.exception.CreateJWTException;
+import com.blandygbc.adopet.domain.exception.EmailAlreadyInUseException;
 import com.blandygbc.adopet.domain.exception.EmptyListException;
+import com.blandygbc.adopet.domain.exception.InternalErrorDTO;
 import com.blandygbc.adopet.domain.exception.NotAuthorizedException;
 import com.blandygbc.adopet.domain.exception.TokenJWTExpiredException;
+import com.blandygbc.adopet.domain.exception.ValidationErrorFields;
 import com.blandygbc.adopet.util.JsonMessage;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -52,6 +55,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(EmptyListException.class)
     public ResponseEntity<JsonMessage> handleEmptyList() {
         return ResponseEntity.ok().body(new JsonMessage(NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(EmailAlreadyInUseException.class)
+    public ResponseEntity<JsonMessage> handleEmailAlreadyInUse() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JsonMessage("O e-mail já está em uso."));
     }
 
     @ExceptionHandler(NotAuthorizedException.class)
@@ -109,14 +117,5 @@ public class ApiExceptionHandler {
     public ResponseEntity<JsonMessage> tratarErro500(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new JsonMessage("Erro: " + ex.getLocalizedMessage()));
-    }
-
-    private record ValidationErrorFields(String field, String message) {
-        public ValidationErrorFields(FieldError error) {
-            this(error.getField(), error.getDefaultMessage());
-        }
-    }
-
-    private record InternalErrorDTO(LocalDateTime date, String message) {
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.pets.Pet;
+import com.blandygbc.adopet.domain.pets.PetMapper;
 import com.blandygbc.adopet.domain.pets.PetModel;
 import com.blandygbc.adopet.domain.pets.PetNewModel;
 import com.blandygbc.adopet.domain.pets.PetRepository;
@@ -40,19 +40,22 @@ public class PetController {
     @Autowired
     private ShelterRepository shelterRepository;
 
+    @Autowired
+    private PetMapper petMapper;
+
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PetModel> add(@Valid @RequestBody PetNewModel newPet) {
         var shelter = shelterRepository.getReferenceById(newPet.shelterId());
-        var savedPet = repository.save(Pet.entityFromNewModel(newPet, shelter));
-        return ResponseEntity.ok(PetModel.modelFromEntity(savedPet));
+        var savedPet = repository.save(petMapper.newModelToEntity(newPet, shelter));
+        return ResponseEntity.ok(petMapper.entityToModel(savedPet));
     }
 
     @GetMapping
     public ResponseEntity<Page<PetModel>> getAll(@PageableDefault(size = 10) Pageable page) {
         Page<PetModel> petsPage = repository.findAllByStatusNot(PetStatus.ADOPTED, page)
-                .map(PetModel::modelFromEntity);
+                .map(p -> petMapper.entityToModel(p));
         if (petsPage.isEmpty()) {
             throw new EmptyListException();
         }
@@ -64,7 +67,7 @@ public class PetController {
     public ResponseEntity<PetModel> update(@Valid @RequestBody PetUpdateModel updatePet) {
         var pet = repository.getReferenceById(updatePet.id());
         pet.updateInfo(updatePet);
-        return ResponseEntity.ok(PetModel.modelFromEntity(pet));
+        return ResponseEntity.ok(petMapper.entityToModel(pet));
     }
 
     @DeleteMapping("/{petId}")
@@ -80,7 +83,7 @@ public class PetController {
     @GetMapping(value = "/{petId}")
     public ResponseEntity<PetModel> detail(@PathVariable Long petId) {
         var pet = repository.getReferenceById(petId);
-        return ResponseEntity.ok(PetModel.modelFromEntity(pet));
+        return ResponseEntity.ok(petMapper.entityToModel(pet));
     }
 
 }

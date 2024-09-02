@@ -7,7 +7,7 @@ public class TokenJWTExpiredException extends ApiException {
     }
 
     public TokenJWTExpiredException() {
-        super("");
+
     }
 
 }

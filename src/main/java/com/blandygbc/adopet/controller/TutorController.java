@@ -1,7 +1,6 @@
 package com.blandygbc.adopet.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,78 +13,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blandygbc.adopet.domain.exception.EmptyListException;
-import com.blandygbc.adopet.domain.role.BasicRoles;
 import com.blandygbc.adopet.domain.tutor.Tutor;
+import com.blandygbc.adopet.domain.tutor.TutorMapper;
 import com.blandygbc.adopet.domain.tutor.TutorModel;
 import com.blandygbc.adopet.domain.tutor.TutorNewModel;
-import com.blandygbc.adopet.domain.tutor.TutorRepository;
+import com.blandygbc.adopet.domain.tutor.TutorService;
 import com.blandygbc.adopet.domain.tutor.TutorUpdateModel;
-import com.blandygbc.adopet.domain.user.AuthService;
-import com.blandygbc.adopet.domain.user.User;
 import com.blandygbc.adopet.util.JsonMessage;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("tutores")
+@RequiredArgsConstructor
+@RequestMapping("tutors")
 public class TutorController {
 
     @Autowired
-    private TutorRepository repository;
+    private final TutorService service;
 
     @Autowired
-    private AuthService authService;
+    private TutorMapper mapper;
 
     @PostMapping
     @Transactional
     // @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TutorModel> add(@Valid @RequestBody TutorNewModel newTutor) {
-        User user = authService.createUser(newTutor.email(), newTutor.password(), BasicRoles.TUTOR.getId());
-        Tutor savedTutor = repository.save(Tutor.entityFromNewModel(newTutor.name(), user));
-        return ResponseEntity.ok(TutorModel.modelFromEntity(savedTutor));
+        Tutor savedTutor = service.createTutor(newTutor);
+        return ResponseEntity.ok(mapper.entityToModel(savedTutor));
     }
 
     @GetMapping
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<List<TutorModel>> getAll() {
-        List<TutorModel> tutors = repository.findAll().stream()
-                .map(TutorModel::modelFromEntity)
-                .collect(Collectors.toList());
-        if (tutors.isEmpty()) {
-            throw new EmptyListException();
-        }
-        return ResponseEntity.ok(tutors);
+        return ResponseEntity.ok(service.findAll());
     }
 
     @PutMapping
     @Transactional
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<TutorModel> update(@Valid @RequestBody TutorUpdateModel updateTutor) {
-        var tutor = repository.getReferenceById(updateTutor.id());
-        tutor.updateInfo(updateTutor);
-        return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));
+        var tutor = service.updateTutor(updateTutor);
+        return ResponseEntity.ok(mapper.entityToModel(tutor));
     }
 
     @DeleteMapping("/{tutorId}")
     @Transactional
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<JsonMessage> delete(@PathVariable Long tutorId) {
-        Integer result = repository.deleteTutorById(tutorId);
-        if (result == 0) {
-            throw new EntityNotFoundException();
-        }
+        service.deleteTutor(tutorId);
         return ResponseEntity.ok(new JsonMessage("Removido com sucesso!"));
     }
 
-    @GetMapping(value = "/{tutorId}")
+    @GetMapping("/{tutorId}")
     @SecurityRequirement(name = "bearer-key")
     public ResponseEntity<TutorModel> detail(@PathVariable Long tutorId) {
-        Tutor tutor = repository.getReferenceById(tutorId);
-        return ResponseEntity.ok(TutorModel.modelFromEntity(tutor));
+        return ResponseEntity.ok(mapper.entityToModel(
+                service.getTutor(tutorId)));
     }
 
 }

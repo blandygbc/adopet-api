@@ -12,6 +12,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode(of = "id")
 public class Shelter {
     @Id
@@ -35,23 +37,6 @@ public class Shelter {
     private String phone;
     @OneToOne
     User user;
-
-    public Shelter(
-            String name,
-            String image,
-            String about,
-            String city,
-            String state,
-            String phone,
-            User user) {
-        this.name = name;
-        this.phone = phone;
-        this.city = city;
-        this.state = state;
-        this.about = about;
-        this.image = image;
-        this.user = user;
-    }
 
     public void updateInfo(@Valid ShelterUpdateModel updateShelter) {
         if (updateShelter.name() != null) {
@@ -72,29 +57,6 @@ public class Shelter {
         if (updateShelter.image() != null) {
             this.image = updateShelter.image();
         }
-    }
-
-    public static Shelter entityFromNewModel(ShelterNewModel shelterModel, User user) {
-        return new Shelter(
-                shelterModel.name(),
-                shelterModel.image(),
-                shelterModel.about(),
-                shelterModel.city(),
-                shelterModel.state(),
-                shelterModel.phone(),
-                user);
-    }
-
-    public static Shelter entityFromModel(ShelterModel shelterModel) {
-        return new Shelter(
-                shelterModel.id(),
-                shelterModel.name(),
-                shelterModel.image(),
-                shelterModel.about(),
-                shelterModel.city(),
-                shelterModel.state(),
-                shelterModel.phone(),
-                User.entityFromModel(shelterModel.user()));
     }
 
 }

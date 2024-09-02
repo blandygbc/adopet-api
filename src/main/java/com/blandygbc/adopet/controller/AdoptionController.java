@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blandygbc.adopet.domain.adoption.AdoptionMapper;
 import com.blandygbc.adopet.domain.adoption.AdoptionModel;
 import com.blandygbc.adopet.domain.adoption.AdoptionNewModel;
 import com.blandygbc.adopet.domain.adoption.AdoptionRepository;
@@ -38,6 +39,8 @@ public class AdoptionController {
     private TutorRepository tutorRepository;
     @Autowired
     private AdoptionService service;
+    @Autowired
+    private AdoptionMapper mapper;
 
     @PostMapping
     @Transactional
@@ -51,7 +54,7 @@ public class AdoptionController {
     @GetMapping
     public ResponseEntity<Page<AdoptionModel>> getAll(@PageableDefault(size = 10) Pageable page) {
         Page<AdoptionModel> adoptionPage = repository.findAll(page)
-                .map(AdoptionModel::modelFromEntity);
+                .map(a -> mapper.entityToModel(a));
         if (adoptionPage.isEmpty()) {
             throw new EmptyListException();
         }

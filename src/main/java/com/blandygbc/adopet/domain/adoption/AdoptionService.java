@@ -1,5 +1,7 @@
 package com.blandygbc.adopet.domain.adoption;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,19 @@ public class AdoptionService {
     @Autowired
     private PetService petService;
 
+    @Autowired
+    private AdoptionMapper mapper;
+
     @Transactional
     public ResponseEntity<AdoptionModel> adopt(Pet pet, Tutor tutor) {
         petService.adoptPet(pet);
-        Adoption savedAdoption = repository.save(Adoption.buildNew(pet, tutor));
-        return ResponseEntity.ok(AdoptionModel.modelFromEntity(savedAdoption));
+        Adoption newAdoption = Adoption.builder()
+                .pet(pet)
+                .tutor(tutor)
+                .date(LocalDateTime.now())
+                .build();
+        Adoption savedAdoption = repository.save(newAdoption);
+        return ResponseEntity.ok(mapper.entityToModel(savedAdoption));
     }
 
     public ResponseEntity<JsonMessage> deleteAdoption(Long adoptionId) {

@@ -1,11 +1,7 @@
 package com.blandygbc.adopet.domain.role;
 
-public record RoleModel(Long id, String name, String description) {
+import lombok.Builder;
 
-    public static RoleModel modelFromEntity(Role role) {
-        return new RoleModel(
-                role.getId(),
-                role.getName(),
-                role.getDescription());
-    }
+@Builder
+public record RoleModel(Long id, String name, String description) {
 }
